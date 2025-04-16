@@ -2,17 +2,30 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#SaveTheDate 16 Agosto 2025</title>
+    <title>#SaveTheDate 16/8/25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #3D7600;
+            --secondary-color: #F4CB7B;
+            --accent-color: #D4A76A;
+            --text-color: #333;
+            --light-bg: #FFF9F0;
+            --light-green-bg: #e8f0e1; /* Cor suave para hover do botão */
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: url('bg.jpeg') center/cover no-repeat;
+            background: url('bg.jpeg') center/cover no-repeat fixed;
+            color: var(--text-color);
+            overflow-x: hidden; /* Evita scroll horizontal */
         }
 
         .container {
@@ -20,42 +33,38 @@
             flex-direction: column;
             align-items: center;
             position: relative;
+            z-index: 1;
         }
 
         .tv-save {
             width: 299px;
-            height: 72px;
-            margin-bottom: 16px;
+            height: auto;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
         .iv-card {
             width: 260px;
             height: 260px;
-            animation: pulse 1.5s infinite;
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
         }
 
-        .iv-leaves {
-            width: 166px;
-            height: 166px;
-            margin: 16px;
+        .iv-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.4));
         }
+
+        /* Removido: iv-leaves (não parece ser usado ativamente) */
 
         .tv-subtitle {
             width: 313px;
-            height: 40px;
-            margin-top: 16px;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
+            height: auto;
+            margin-top: 24px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         /* Modal Styles */
@@ -66,24 +75,39 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
             z-index: 1000;
             padding: 48px 24px;
             box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
         }
 
         .modal-content {
-            background: white;
+            background: var(--light-bg);
             width: 90%;
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            border: 6px solid #F4CB7B;
-            border-radius: 200px 200px 0 0;
+            border: 12px double var(--secondary-color);
+            border-radius: 16px;
             margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-content.show {
+            transform: scale(1);
+            opacity: 1;
         }
 
         .modal-inner {
@@ -91,54 +115,64 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 96px 24px 64px 24px;
+            padding: 64px 24px 48px 24px;
+            position: relative;
         }
 
         .title {
-            color: #3D7600;
-            font-weight: bold;
-            font-size: 24px;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 28px;
             margin-bottom: 16px;
             text-align: center;
+            line-height: 1.3;
         }
 
         .subtitle {
-            color: black;
-            font-size: 20px;
+            color: var(--text-color);
+            font-size: 18px;
             margin: 16px 0;
+            font-weight: 400;
         }
 
         .guest-name {
-            color: #3D7600;
-            font-weight: bold;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
             font-size: 32px;
             margin: 16px 0;
+            line-height: 1.2;
         }
 
         .date-image {
             width: 277px;
-            height: 152px;
-            margin: 24px 0;
+            height: auto;
+            margin: 32px 0;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
         }
 
         .confirm-title {
             width: 214px;
-            height: 32px;
-            margin: 16px 0;
+            height: auto;
+            margin: 24px 0;
         }
 
         .confirm-text {
-            font-size: 14px;
-            color: black;
-            margin: 8px 24px;
+            font-size: 16px;
+            color: var(--text-color);
+            margin: 16px 24px;
+            line-height: 1.6;
+            max-width: 80%;
         }
 
         .buttons-container {
             display: flex;
-            justify-content: space-between;
-            margin-top: 16px;
-            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+            gap: 24px;
             padding: 0 24px;
+            flex-wrap: wrap;
         }
 
         .button-group {
@@ -146,78 +180,74 @@
             flex-direction: column;
             align-items: center;
             flex: 1;
+            min-width: 120px;
         }
 
+        /* --- Estilo de Botão Atualizado --- */
         .circular-button {
-            width: 80px;
-            height: 80px;
-            border: 0.6px solid #3D7600;
+            width: 70px; /* Tamanho ligeiramente reduzido */
+            height: 70px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            background: white;
-            padding: 16px;
-            margin-bottom: 8px;
-            transition: background 0.3s, color 0.3s;
+            background: white; /* Fundo branco base */
+            border: 1px solid #eee; /* Borda bem sutil */
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: var(--primary-color); /* Define a cor para o SVG usar */
         }
 
-        .circular-button.active {
-            background-color: #3D7600;
-            color: white;
+        .circular-button svg {
+            width: 32px; /* Tamanho do ícone SVG */
+            height: 32px;
+            transition: transform 0.3s ease; /* Animação de escala no hover */
         }
 
         .circular-button:hover {
-            background-color: #2B5400;
+            background-color: var(--light-green-bg); /* Fundo verde claro suave no hover */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
+        .circular-button:hover svg {
+            transform: scale(1.1); /* Aumenta ligeiramente o ícone no hover */
+        }
+        /* --- Fim do Estilo de Botão Atualizado --- */
+
         .button-text {
-            font-size: 12px;
-            color: black;
+            font-size: 14px;
+            color: var(--text-color);
             text-align: center;
-            margin-top: 8px;
+            margin-top: 0; /* Ajustado */
+            font-weight: 500;
+        }
+
+        .leaf1, .leaf2 {
+            position: absolute;
+            width: 180px;
+            height: auto;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.8;
         }
 
         .leaf1 {
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 206px;
-            height: 202px;
-            pointer-events: none;
+            top: -40px;
+            left: -40px;
+            transform: rotate(-15deg);
+            animation: float 6s ease-in-out infinite;
         }
 
         .leaf2 {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 217px;
-            height: 116px;
-            pointer-events: none;
+            bottom: -40px;
+            right: -40px;
+            transform: rotate(15deg);
+            animation: float 8s ease-in-out infinite 1s;
         }
 
-        /* Ajustes para mobile */
-        @media (max-width: 768px) {
-            .modal {
-                padding: 24px 12px;
-            }
-
-            .buttons-container {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .modal-content {
-                border-radius: 100px 100px 0 0;
-            }
-
-            .leaf1, .leaf2 {
-                width: 150px;
-                height: auto;
-            }
-        }
-
+        /* --- Envelope Animation Atualizada --- */
         .envelope-animation {
             position: fixed;
             top: 0;
@@ -228,153 +258,194 @@
             justify-content: center;
             align-items: center;
             z-index: 999;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .envelope-animation.show {
+            opacity: 1;
         }
 
         .envelope-container {
-            position: relative;
+            position: relative; /* Mudado para relative para posicionar flap e base */
             width: 260px;
             height: 260px;
+            perspective: 1000px;
+            /* position: absolute; será definido via JS */
         }
 
-        .envelope-open {
+        .envelope-base { /* Estilo para a parte de trás/fixa */
             width: 100%;
             height: 100%;
             position: absolute;
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 0;
+            left: 0;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
         }
 
-        .envelope-open.show {
+        .envelope-flap { /* Estilo para a aba/flap que anima */
+            width: 100%; /* Ajuste conforme a imagem da aba */
+            height: auto; /* Ajuste conforme a imagem da aba */
+            position: absolute;
+            top: 0; /* Posiciona no topo */
+            left: 0;
+            opacity: 0;
+            transform-style: preserve-3d;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: top center; /* Gira a partir da borda superior central */
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+            z-index: 10; /* Garante que fique sobre a base */
+        }
+
+        .envelope-flap.show {
             opacity: 1;
+            /* CORREÇÃO: Gira para cima (negativo) */
+            transform: rotateX(-150deg) translateY(0px); /* Ajuste o ângulo e Y conforme necessário */
         }
 
         .letter {
             position: absolute;
             background: white;
-            top: 50%;
+            /* Posição inicial DENTRO do envelope visualmente */
+            top: 25%; /* Ajuste para parecer que está saindo */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, 0) scale(0.8); /* Começa um pouco menor */
             width: 200px;
-            height: 10px;
+            height: 10px; /* Começa fino */
             opacity: 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform-origin: center;
+            z-index: 5; /* Abaixo da flap, acima da base */
         }
 
         .letter.animate {
-            animation: expandLetter 1s forwards;
+            animation: expandLetter 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.3s; /* Pequeno delay para a aba levantar primeiro */
         }
 
         @keyframes expandLetter {
             0% {
                 width: 200px;
                 height: 10px;
-                top: 50%;
+                top: 25%;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, 0) scale(0.8);
                 opacity: 1;
             }
-            30% {
-                width: 200px;
-                height: 200px;
-                top: 50%;
+            30% { /* Sobe e começa a crescer */
+                width: 220px;
+                height: 180px;
+                top: 10%;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, 0) scale(1);
                 opacity: 1;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             }
-            100% {
+            100% { /* Expande para o tamanho final do modal */
                 width: 90vw;
                 max-width: 600px;
                 height: 90vh;
                 top: 50%;
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+                border-radius: 16px; /* Mesma borda do modal */
             }
         }
+        /* --- Fim da Animação do Envelope --- */
 
-        .modal {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(-15deg); }
         }
 
-        .modal.show {
-            opacity: 1;
-            pointer-events: auto;
+        /* --- Film Roll Animation --- */
+        .film-roll-container {
+            position: fixed;
+            bottom: 70px; /* Posição acima do player de música */
+            left: 0;
+            width: 100%;
+            height: 120px; /* Altura do rolo de filme */
+            overflow: hidden;
+            z-index: 800; /* Abaixo do modal e envelope */
+            pointer-events: none; /* Não interfere com cliques */
+            background: rgba(0, 0, 0, 0.1); /* Fundo sutil opcional */
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; /* Para alinhar o track */
+            align-items: center; /* Centraliza as fotos verticalmente */
         }
 
-        .modal-content {
-            position: absolute;
+        .film-roll-track {
+            display: flex; /* Coloca as fotos lado a lado */
+            height: 100px; /* Altura das fotos + padding */
+            /* A largura será definida dinamicamente ou será muito grande */
+            /* A animação fará a rolagem */
+            animation: scrollFilm 40s linear infinite; /* Ajuste a duração (40s) conforme necessário */
+            will-change: transform; /* Otimização para animação */
+        }
+
+        .film-photo {
+            flex-shrink: 0; /* Impede que as fotos encolham */
+            width: 100px; /* Largura de cada foto */
+            height: 100px;
+            margin: 0 10px; /* Espaçamento entre fotos */
+            background: white;
+            padding: 5px; /* Borda branca tipo polaroid */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Garante que a imagem não vaze */
+        }
+
+        .film-photo img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover; /* Cobre a área sem distorcer */
+        }
+
+        @keyframes scrollFilm {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                /* Move para a esquerda pela largura de um conjunto de fotos */
+                /* O valor exato será definido pelo JS, mas aqui usamos um valor grande */
+                /* Se temos N fotos, e cada uma com margem tem W de largura, movemos -N*W */
+                transform: translateX(-50%); /* Move metade da largura total do track (que contém 2x as fotos) */
+            }
+        }
+        /* --- Fim do Film Roll --- */
+
+
+        /* Thank You Image (mantido como estava) */
+        .thank-you-image {
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80vh;
+            z-index: 1200;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.8s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 10px solid white;
+            border-radius: 8px;
+            pointer-events: none; /* Para não bloquear cliques após desaparecer */
         }
 
-        .modal-content.show {
+        .thank-you-image.show {
             opacity: 1;
         }
 
-        .modal-multiple {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content-multiple {
-            background: white;
-            padding: 24px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .guest-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .guest-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .button {
-            border: 2px solid;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin: 5px;
-            font-size: 16px;
-        }
-
-        .button-green {
-            border-color: green;
-            color: green;
-            background: white;
-        }
-
-        .button-red {
-            border-color: red;
-            color: red;
-            background: white;
-        }
-
-        .final-modal {
-            display: none;
-        }
-
+        /* Guests Dialog (mantido como estava) */
         .guests-dialog {
             display: none;
             position: fixed;
@@ -382,13 +453,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 2000;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
+        .guests-dialog.show { opacity: 1; }
         .guests-dialog-content {
             background: white;
             border-radius: 12px;
@@ -397,92 +470,74 @@
             max-width: 500px;
             max-height: 80vh;
             overflow-y: auto;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
+        .guests-dialog-content.show { transform: scale(1); opacity: 1; }
+        .guest-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .guest-name-label { font-size: 16px; color: #333; }
+        .guest-buttons { display: flex; gap: 8px; }
+        .response-button { padding: 8px 16px; border: 2px solid var(--primary-color); border-radius: 6px; background: white; color: var(--primary-color); cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+        .response-button:hover { background: var(--primary-color); color: white; }
+        .response-button.selected { background: var(--primary-color); color: white; }
+        .dialog-actions { display: flex; justify-content: space-between; margin-top: 24px; gap: 12px; }
+        .confirm-all-button, .back-button { padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; flex: 1; font-weight: 600; transition: all 0.3s ease; }
+        .confirm-all-button { background: var(--primary-color); color: white; }
+        .confirm-all-button:hover { background: #2B5400; transform: translateY(-2px); }
+        .back-button { background: #FF4444; color: white; }
+        .back-button:hover { background: #CC0000; transform: translateY(-2px); }
 
-        .guest-item {
+        /* Thank You Modal (mantido como estava) */
+        .thank-you-modal { text-align: center; padding: 48px 24px; animation: fadeIn 0.8s ease; }
+        .thank-you-title { color: var(--primary-color); font-size: 28px; font-weight: bold; margin-bottom: 24px; font-family: 'Playfair Display', serif; }
+        .thank-you-message { color: var(--text-color); font-size: 18px; line-height: 1.6; max-width: 400px; margin: 0 auto 32px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .guest-name-label {
-            font-size: 16px;
-            color: #333;
-        }
-
-        .guest-buttons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .response-button {
-            padding: 8px 16px;
-            border: 2px solid #3D7600;
-            border-radius: 6px;
-            background: white;
-            color: #3D7600;
             cursor: pointer;
-            transition: all 0.3s;
+            z-index: 1100; /* Acima do rolo de filme */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            color: var(--primary-color); /* Cor para os ícones SVG */
         }
 
-        .response-button:hover {
-            background: #3D7600;
-            color: white;
-        }
-
-        .response-button.selected {
-            background: #3D7600;
-            color: white;
-        }
-
-        .dialog-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 24px;
-            gap: 12px;
-        }
-
-        .confirm-all-button {
-            padding: 12px 24px;
-            border: 2px solid #3D7600;
+        .music-player:hover {
+            transform: scale(1.1);
             background: white;
-            color: #3D7600;
-            border-radius: 6px;
-            cursor: pointer;
-            flex: 1;
         }
 
-        .back-button {
-            padding: 12px 24px;
-            border: 2px solid #FF4444;
-            background: white;
-            color: #FF4444;
-            border-radius: 6px;
-            cursor: pointer;
-            flex: 1;
+        .music-icon {
+            width: 24px;
+            height: 24px;
         }
 
-        /* Estilos para o modal de agradecimento */
-        .thank-you-modal {
-            text-align: center;
-            padding: 48px 24px;
-        }
-
-        .thank-you-title {
-            color: #3D7600;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 24px;
-        }
-
-        .thank-you-message {
-            color: #333;
-            font-size: 18px;
-            line-height: 1.5;
-            max-width: 400px;
-            margin: 0 auto;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .modal { padding: 24px 12px; }
+            .buttons-container { flex-direction: column; gap: 24px; }
+            .modal-content { border-radius: 12px; }
+            .leaf1, .leaf2 { width: 120px; }
+            .title { font-size: 24px; }
+            .guest-name { font-size: 28px; }
+            .date-image { width: 220px; }
+            .film-roll-container { height: 100px; bottom: 80px; } /* Ajuste responsivo */
+            .film-roll-track { height: 80px; }
+            .film-photo { width: 80px; height: 80px; margin: 0 5px;}
+            .circular-button { width: 60px; height: 60px; }
+            .circular-button svg { width: 28px; height: 28px; }
         }
     </style>
 </head>
@@ -493,49 +548,75 @@
         <img class="tv-subtitle" src="tv_subtitle.png" alt="Subtitle">
     </div>
 
+    <!-- Envelope Animation -->
     <div class="envelope-animation" id="envelopeAnimation">
         <div class="envelope-container">
-            <img class="envelope-open" id="envelopeOpen" src="envelope_open.png" alt="Envelope Aberto">
+            <!-- Imagem do envelope (pode ser a parte de trás ou uma base) -->
+            <img class="envelope-base" src="envelope_base.png" alt="Base do Envelope">
+            <!-- Imagem da aba/flap que vai animar -->
+            <img class="envelope-flap" id="envelopeFlap" src="envelope_flap.png" alt="Aba do Envelope">
             <div class="letter" id="letter"></div>
         </div>
     </div>
+
+    <!-- Film Roll Photo Animation -->
+    <div class="film-roll-container" id="filmRollContainer">
+        <div class="film-roll-track" id="filmRollTrack">
+            <!-- Fotos serão adicionadas aqui pelo JavaScript -->
+        </div>
+    </div>
+
+    <!-- Thank You Image (opcional, se quiser manter) -->
+    <img class="thank-you-image" id="thankYouImage" src="" alt="Thank You">
 
     <!-- Modal -->
     <div class="modal" id="inviteModal">
         <div class="modal-content">
             <img class="leaf1" src="iv_leaf1.png" alt="Leaf 1">
-            
+            <img class="leaf2" src="iv_leaf2.png" alt="Leaf 2">
+
             <div class="modal-inner">
                 <h1 class="title">Elian e Keytiane<br>estão se casando!</h1>
                 <p class="subtitle">E queremos que você</p>
                 <p class="guest-name">Nome Convidado</p>
                 <p class="subtitle">faça parte dessa celebração</p>
-                
+
                 <img class="date-image" src="iv_date.png" alt="Data">
                 <img class="confirm-title" src="tv_confirm_title.png" alt="Confirme sua presença">
-                
+
                 <p class="confirm-text">
                     Por favor, nos informe abaixo se você poderá se juntar a nós nesse dia especial.
                 </p>
 
                 <div class="buttons-container">
                     <div class="button-group">
-                        <button class="circular-button">
-                            <img src="btn_yes.png" alt="Sim" width="48" height="48">
+                        <button class="circular-button" data-response="Sim">
+                            <!-- Ícone SVG para SIM -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="36px" height="36px">
+                              <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.454-12.68a.75.75 0 0 1 1.04-.208Z" clip-rule="evenodd" />
+                            </svg>
                         </button>
                         <span class="button-text">Sim, eu posso comparecer!</span>
                     </div>
 
                     <div class="button-group">
-                        <button class="circular-button">
-                            <img src="btn_maybe.png" alt="Talvez" width="48" height="48">
+                         <button class="circular-button" data-response="Talvez">
+                            <!-- Ícone SVG para TALVEZ -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#3D7600" opacity="0.2" />
+                                    <path d="M50 20C40 20 32 28 32 38h12c0-4 2-6 6-6s6 2 6 6c0 4-2 6-6 8-4 2-6 6-6 10v4h12v-2c0-4 2-6 6-8 4-2 8-6 8-12 0-10-8-18-20-18Z" fill="#3D7600" />
+                                <circle cx="50" cy="75" r="6" fill="#3D7600" />
+                            </svg>
                         </button>
                         <span class="button-text">Preciso de um tempo para confirmar</span>
                     </div>
 
                     <div class="button-group">
-                        <button class="circular-button">
-                            <img src="btn_no.png" alt="Não" width="48" height="48">
+                        <button class="circular-button" data-response="Não">
+                           <!-- Ícone SVG para NÃO -->
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="36px" height="36px">
+                             <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                           </svg>
                         </button>
                         <span class="button-text">Infelizmente não posso comparecer</span>
                     </div>
@@ -544,6 +625,7 @@
         </div>
     </div>
 
+    <!-- Guests Dialog -->
     <div class="guests-dialog" id="guestsDialog">
         <div class="guests-dialog-content">
             <h2>Confirme a presença</h2>
@@ -561,151 +643,196 @@
         </div>
     </div>
 
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+        <!-- Ícone Play SVG -->
+        <svg class="music-icon" id="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+          <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+        </svg>
+        <!-- Ícone Pause SVG (inicialmente escondido) -->
+        <svg class="music-icon" id="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px" style="display: none;">
+          <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+        </svg>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const TELEGRAM_BOT_TOKEN = '7790968479:AAFWGQcuxa2sy95191i0IjNAFAZNDspDLXI';
         const TELEGRAM_CHANNEL_ID = '-1002378516159';
 
         let selectedResponses = {};
         let currentResponse = '';
+        let musicPlaying = false;
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
 
+        // Array de fotos do casal (substitua pelos caminhos reais das suas fotos)
+        const couplePhotos = [
+            'photo1.jpg', 'photo2.jpg', 'photo3.jpg', 'photo4.jpg', 'photo5.jpg',
+            'photo6.jpg', 'photo7.jpg', 'photo8.jpg', 'photo9.jpg', 'photo10.jpg'
+        ];
+
+        // --- Função para Configurar o Rolo de Filme ---
+        function setupFilmRoll() {
+            const track = document.getElementById('filmRollTrack');
+            if (!track) return;
+            track.innerHTML = ''; // Limpa o track caso seja chamado novamente
+
+            // Duplica as fotos para o loop contínuo
+            const photosToDisplay = [...couplePhotos, ...couplePhotos];
+
+            photosToDisplay.forEach(photoSrc => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'film-photo';
+                const img = document.createElement('img');
+                img.src = photoSrc;
+                img.alt = 'Foto do Casal';
+                photoDiv.appendChild(img);
+                track.appendChild(photoDiv);
+            });
+
+            // Opcional: Ajustar a duração da animação baseado no número de fotos
+            // const photoElementWidth = 100 + 20; // Largura da foto + margens (ajuste se mudar no CSS)
+            // const totalWidth = couplePhotos.length * photoElementWidth;
+            // const animationDuration = couplePhotos.length * 4; // Ex: 4 segundos por foto
+            // track.style.animationDuration = `${animationDuration}s`;
+            // track.style.width = `${totalWidth * 2}px`; // Define a largura total do track (2x fotos)
+
+            // Como a animação no CSS já usa translateX(-50%), não precisamos definir a largura exata aqui
+            // se o número de fotos for razoavelmente grande. O browser calculará.
+        }
+
+        // --- Função de Música Atualizada com SVGs ---
+        function toggleMusic() {
+            if (musicPlaying) {
+                backgroundMusic.pause();
+                playIcon.style.display = 'block'; // Mostra Play
+                pauseIcon.style.display = 'none'; // Esconde Pause
+            } else {
+                // Tenta tocar a música (navegadores podem bloquear autoplay)
+                backgroundMusic.play().catch(error => {
+                    console.log("Autoplay bloqueado, usuário precisa interagir primeiro.", error);
+                    // Poderia mostrar uma mensagem para o usuário clicar novamente
+                    return; // Não muda o ícone se não conseguiu tocar
+                });
+                playIcon.style.display = 'none'; // Esconde Play
+                pauseIcon.style.display = 'block'; // Mostra Pause
+            }
+            musicPlaying = !musicPlaying;
+        }
+
+        // --- Animação do Envelope Atualizada ---
         function startAnimation() {
             const envelopeAnim = document.getElementById('envelopeAnimation');
-            const envelopeOpen = document.getElementById('envelopeOpen');
+            const envelopeFlap = document.getElementById('envelopeFlap'); // Usar a flap agora
             const letter = document.getElementById('letter');
             const modal = document.getElementById('inviteModal');
             const modalContent = document.querySelector('.modal-content');
             const originalCard = document.querySelector('.iv-card');
-            
-            // Pega a posição do cartão original
+
             const cardRect = originalCard.getBoundingClientRect();
-            
-            // Posiciona o envelope na mesma posição do cartão
             const container = document.querySelector('.envelope-container');
-            container.style.position = 'absolute';
+
+            // Posiciona o container do envelope sobre o card inicial
+            container.style.position = 'fixed'; // Usar fixed para sobrepor tudo
             container.style.left = cardRect.left + 'px';
             container.style.top = cardRect.top + 'px';
-            
-            // Inicia a sequência de animação
+            container.style.width = cardRect.width + 'px';
+            container.style.height = cardRect.height + 'px';
+
+            originalCard.style.opacity = '0'; // Esconde o card original
+
             envelopeAnim.style.display = 'flex';
-            
-            // Mostra o envelope aberto
             setTimeout(() => {
-                envelopeOpen.classList.add('show');
-                
-                // Inicia animação da carta
+                envelopeAnim.classList.add('show');
+
+                // Mostra a aba do envelope abrindo
                 setTimeout(() => {
-                    letter.classList.add('animate');
-                    
-                    // Quando a carta terminar de expandir, mostra o conteúdo do modal
+                    envelopeFlap.classList.add('show'); // Anima a aba
+
+                    // Inicia animação da carta saindo
                     setTimeout(() => {
-                        modal.style.display = 'flex';
-                        modalContent.classList.add('show');
-                        modal.classList.add('show');
-                        
-                        // Limpa a animação
-                        setTimeout(() => {
-                            envelopeAnim.style.display = 'none';
-                            letter.classList.remove('animate');
-                            envelopeOpen.classList.remove('show');
-                        }, 300);
-                    }, 1000);
-                }, 300);
-            }, 100);
+                        letter.classList.add('animate');
+
+                        // Quando a carta terminar de expandir, mostra o conteúdo do modal
+                        letter.addEventListener('animationend', () => {
+                            modal.style.display = 'flex';
+                            setTimeout(() => {
+                                modal.classList.add('show');
+                                modalContent.classList.add('show');
+
+                                // Inicia o rolo de filme (se ainda não estiver visível)
+                                document.getElementById('filmRollContainer').style.opacity = 1;
+                                document.getElementById('filmRollContainer').style.pointerEvents = 'none'; // Garante que não bloqueie
+
+                            }, 50);
+
+                            // Limpa a animação do envelope após um tempo
+                            setTimeout(() => {
+                                envelopeAnim.classList.remove('show');
+                                envelopeFlap.classList.remove('show');
+                                letter.classList.remove('animate'); // Remove classe para resetar
+                                letter.style.opacity = 0; // Esconde a carta animada
+                                originalCard.style.opacity = '1'; // Mostra o card original de novo (opcional)
+                                // Reseta posição do container do envelope
+                                container.style.position = 'relative';
+                                container.style.left = 'auto';
+                                container.style.top = 'auto';
+
+                                setTimeout(() => {
+                                    envelopeAnim.style.display = 'none';
+                                }, 500); // Tempo para fade out
+                            }, 500); // Tempo antes de limpar
+
+                        }, { once: true }); // Garante que o listener rode só uma vez
+                    }, 100); // Pequeno delay para a aba começar a abrir antes da carta
+                }, 100); // Delay para o fade-in do overlay
+            }, 10); // Delay mínimo para iniciar transição
         }
 
-        // Fechar modal
+        // --- Função Thank You (mantida) ---
+        function showThankYouImage(response) {
+            const thankYouImage = document.getElementById('thankYouImage');
+            let imageSrc = '';
+            if (response === 'Sim') imageSrc = 'thank-you-yes.jpg';
+            else if (response === 'Talvez') imageSrc = 'thank-you-maybe.jpg';
+            else imageSrc = 'thank-you-no.jpg';
+
+            if (imageSrc) { // Só mostra se tiver uma imagem definida
+                thankYouImage.src = imageSrc;
+                thankYouImage.classList.add('show');
+                setTimeout(() => {
+                    thankYouImage.classList.remove('show');
+                }, 5000);
+            } else {
+                // Se não houver imagem específica, talvez mostrar a modal de agradecimento
+                showThankYouModal(response);
+            }
+        }
+
+        // --- Lógica de Convidados e Fechamento (mantida em grande parte) ---
+
+        // Fechar modal principal (clicando fora)
         document.getElementById('inviteModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 const modal = this;
                 const modalContent = modal.querySelector('.modal-content');
-                
                 modalContent.classList.remove('show');
                 modal.classList.remove('show');
-                
                 setTimeout(() => {
                     modal.style.display = 'none';
-                }, 300);
+                }, 500); // Tempo da transição do modal
             }
         });
 
+        // Dados dos convidados (mantido)
         const uuidGuests = {
             '3432420a-d313-499c-97e7-a7c8c8030bba': ['Keytiane Ferreira'],
-            '3432420a-d313-499c-97e7-a7c8c8030bbc': ['Iolanda;Lorenna'],
-            'ef0585ca-3ce9-4d28-8b88-bb7d5d04c07b': ['Mª de Fátima Costa'],
-            'fd419500-bb85-4393-af9c-a1d68953acd5': ['Marlene Costa'],
-            '107277af-3865-4762-8259-011ad560a0fd': ['Mª Madalena Souza'],
-            'e92f6978-f579-42e2-9e97-6f93adb68833': ['Miguel;Aldenice Souza'],
-            'd3dd2c8a-ec19-46ce-ac5f-d9455ce5ffa6': ['Michel;Izandra Souza'],
-            '3dd17089-0d14-479c-a3b7-83e48b6e04e6': ['Jefferson;Clarinda Souza'],
-            'cc7745c8-bba9-49fd-a7a9-f39e5d19dbe4': ['Wanda;Ocimar Souza'],
-            '11f8a596-3529-4607-97c5-4e016c16d5b0': ['Vera;Cássia;Eva Souza'],
-            'ba0a5d08-005f-4e24-90d1-09bc11395100': ['Magdiel Souza'],
-            '8cc3b813-b735-44c9-a139-309c1c33098a': ['Hudson Souza'],
-            '686973ed-dfd9-4025-b4e2-16d8cdafb860': ['Elias Souza'],
-            '6c14159d-b904-43d7-b1e0-e33005d4d514': ['Lázaro Souza'],
-            '99c3880d-ffd7-4837-bb19-fc40f03fc6f9': ['João Batista Brito'],
-            'be932394-a101-4640-9294-4b1f7f3c7e0b': ['Manoel;Iolane Rendeiro'],
-            'c2936ad3-19ac-441c-b39b-ba6a8fdb126e': ['Rosilda Oliveira'],
-            '763e706d-55c6-4271-b853-46bc50fa82ab': ['Socorro;Ronaldo Gomes'],
-            '3ef483a3-1cdb-431c-b13c-663e347c3ba7': ['Maitê;Nicolas'],
-            '0c459e63-c90d-4ed2-b01b-6b4f8ebf0be9': ['Dom Giuliano'],
-            '29181420-098f-4bab-ad41-c8392b8f1d59': ['Alcione Praia'],
-            '38773c5d-e9d3-41c4-9248-0dd0300402d0': ['Elian Monteiro'],
-            '9eccb9cf-2237-4f71-a4e3-1b2002c7baf9': ['Even Neves'],
-            '6d93f247-a283-4fb9-91eb-96a385d99470': ['Ellis;Cecília;Benjamin'],
-            '6a3e5dca-f4fe-4e05-98c5-10d5629b0e80': ['Rommel Souza'],
-            'f995f996-9667-4167-878a-9ae68a959a24': ['André Luís'],
-            '6b103e10-e49c-4c55-883a-c47713afe6ac': ['Jussara Itou'],
-            '126eba38-4c01-42e2-acce-f229b3149669': ['Marcos Itou'],
-            'c82e5799-b3fe-4b50-bbd6-48c66ef8bf00': ['David Lazaroni'],
-            '14fc32ee-be33-4600-b1b0-27b3d5018dbb': ['Dayell Souza'],
-            'a3e674b6-08ae-4031-a562-341e7e410080': ['Thiago Ferreira'],
-            '2adb38ae-332b-4d10-9936-2772e2d7487e': ['Jonathas Modesto'],
-            'e8acb29f-348b-46d5-806d-72bfdbee9559': ['Amélia Emmely;Lívia Medeiros'],
-            '658d2323-d379-47c4-9bc9-2d653ecebb19': ['Manoel Roberto;Luciene Medeiros'],
-            '83d20876-0eac-43aa-a7ce-ee1473266c35': ['Gilcllys Costa'],
-            'e364a165-0a84-421b-b70e-dd3a7eb9614d': ['Jeana Samara'],
-            '9c8503c3-a742-4c41-8746-1ca09e160786': ['Amanda Araújo'],
-            '5c82f9e3-9def-49f0-9780-14d3c7a6f536': ['Júlia Kauane'],
-            '952a25ea-cb8f-4c43-b628-6a298fa2faf5': ['Christine Lima'],
-            'c7de1790-2b4e-4208-aa8c-659793faa76c': ['Karol;Williames;Ana Garcia'],
-            'cd65f209-a3da-42f1-a5d1-2d45c6221791': ['Jenifer Garcia'],
-            '272363d9-5ebc-4237-a23c-7fbd3cecdb69': ['Silvia Cristina'],
-            '0cdcdbd4-b16d-4faf-b536-e0050e3ba928': ['Ana Rita Maciel'],
-            '8da5a733-26fe-407c-bdee-cab0802486b5': ['Daniel'],
-            '25965a02-db2e-4aeb-a5e8-c83830a06c29': ['Rosivaldo'],
-            '4876069a-62d2-497b-873f-7b0fc0c0340d': ['Raimunda Maciel'],
-            '10d8dca4-0bdf-4651-90fb-cbca248d1257': ['Mª de Nazaré'],
-            '0be5e1a8-341f-4f82-8be7-ae9367cf5b01': ['João Luís'],
-            '359fe25f-c9a5-40b6-aff8-23a22ad6669f': ['Alexandre Rocha'],
-            '08c7e445-d472-47e0-a700-9867e2e57079': ['Gabriel Rocha'],
-            'ff71de1e-f795-4bc6-baf9-2215f1d768f2': ['João Vitor'],
-            '64623d93-2882-4b24-9460-f8ca06e4ab00': ['Keyla Vitória'],
-            '2d8e5fc4-8802-453c-863e-ff0c474e10fb': ['Elaine Rocha'],
-            'c2cf60c1-708c-43ff-881d-22792a8b64a8': ['Renner Cid'],
-            '6962309e-4653-4b2c-a834-ba005ee12f22': ['Érico Márcio'],
-            'f1dc4310-e131-4e1d-a03f-3a761c0f8df7': ['Eder Marcelo'],
-            'd2a792d7-6abd-4030-a11a-8bec05c52d4d': ['Larissa Costa'],
-            '5aa38407-4ab2-48f5-bb70-1d7101d0cf0d': ['Neuzyane Batista'],
-            'c9f65cb9-475b-487e-910c-1b54c7e8c16a': ['Pablo'],
-            '1e8d1eab-7f23-4ceb-83ca-283dc34ba008': ['Iolene Garcia'],
-            '94da4a05-34bf-4727-9848-eae70a0b344f': ['Eloá'],
-            'f30e3615-ab91-4f25-a67e-5783b1b39259': ['Tio Zé'],
-            '3d2eceb2-2563-48c0-adb7-c550ddd6cacb': ['Ana;Eliseu'],
-            '11b7bbe0-477d-4ac1-880a-16f22ee92e7f': ['Isabele'],
-            'b3d1ba9d-f9e7-4c48-8dd5-95831a4eba95': ['Kylcia Brilhante'],
-            'c72ab227-4fa5-464f-bb17-58483cdd5410': ['Kyldare;Silvia Brilhante'],
-            '845d5dd1-320e-42db-b320-5a4b67917a25': ['Adinamar Klinge'],
-            '4c068e8a-264c-4ea0-9222-882d88f71c33': ['Samia;Marido Samia'],
-            '373ca430-3231-4d1b-9ade-0f58ed135bad': ['Mª da Conceição'],
-            '96d22881-8d37-4906-bdab-0a75ca8c164a': ['Kely'],
-            '47f51b22-0ac1-4fe4-9433-b414dbfcff5d': ['Louro'],
-            'c93acc7c-ae49-4022-af9b-d0b654e4ca32': ['Paloma'],
-            'd187762a-c81b-4382-ae08-54b7a16e7e5a': ['Sandro'],
-            '9011c0da-07be-4d58-8356-2c26a0b3166d': ['Paula Mércia'],
-            '8c6e4468-481c-40b6-ab5a-3a0f40ab7fec': ['Maria Clara'],
-            '13e7098d-890e-49ae-baeb-cbac59e28d54': ['Paulo André'],
-            'd66f392a-1019-4cc9-a7dd-dddb9475b37f': ['Carlos Eduardo'],
             '4fff8a0f-db03-4be5-aa83-f94d2cc0d157': ['Paul McCartney'],
             '25f8cd16-ba08-4c32-9563-996302d4468a': ['Mick Jagger;Keith Richards;Ronnie Wood'],
         };
@@ -716,219 +843,279 @@
         }
 
         function displayGuestInfo(uuid) {
-            const guests = uuidGuests[uuid]?.[0] || ''; // Obtém a lista de nomes do UUID
+            const guestsString = uuidGuests[uuid]?.[0] || ''; // Pega a string de nomes
             const guestNameElement = document.querySelector('.guest-name');
-            const subtitleElements = document.querySelectorAll('.subtitle');
+            const subtitleElements = document.querySelectorAll('.subtitle'); // Pega ambos os subtítulos
 
-            if (!guests) {
-                guestNameElement.textContent = 'Convidado desconhecido';
+            if (!guestsString) {
+                guestNameElement.textContent = 'Convidado Especial'; // Nome genérico
                 subtitleElements[0].textContent = 'E queremos que você';
                 subtitleElements[1].textContent = 'faça parte dessa celebração';
                 return;
             }
 
-            // Analisa se há mais de um convidado
-            if (guests.includes(';')) {
-                const guestList = guests.split(';');
-                const formattedNames = guestList
-                    .slice(0, -1) // Todos menos o último
-                    .join(', ') // Adiciona ", " entre os primeiros
-                    .concat(' e ', guestList.slice(-1)); // Adiciona " e " antes do último
+            const guestList = guestsString.split(';'); // Divide a string em nomes
+
+            if (guestList.length > 1) {
+                // Formata para "Nome1, Nome2 e Nome3"
+                const formattedNames = guestList.length > 2
+                    ? guestList.slice(0, -1).join(', ') + ' e ' + guestList.slice(-1)
+                    : guestList.join(' e '); // Caso de exatamente 2 nomes
 
                 guestNameElement.textContent = formattedNames;
-
-                subtitleElements[0].textContent = 'E queremos que vocês';
-                subtitleElements[1].textContent = 'façam parte dessa celebração';
+                subtitleElements[0].textContent = 'E queremos que vocês'; // Plural
+                subtitleElements[1].textContent = 'façam parte dessa celebração'; // Plural
             } else {
-                guestNameElement.textContent = guests;
-                subtitleElements[0].textContent = 'E queremos que você';
-                subtitleElements[1].textContent = 'faça parte dessa celebração';
+                guestNameElement.textContent = guestList[0]; // Apenas um nome
+                subtitleElements[0].textContent = 'E queremos que você'; // Singular
+                subtitleElements[1].textContent = 'faça parte dessa celebração'; // Singular
             }
         }
 
-        function showMultipleGuestsModal(guests) {
-            const modal = document.getElementById('multipleGuestsModal');
-            const guestList = document.getElementById('guestList');
-
-            guestList.innerHTML = '';
-            guests.forEach(guest => {
-                const li = document.createElement('li');
-                li.innerHTML = `${guest}
-                    <button onclick="logResponse('${guest}', 'Sim')">Sim</button>
-                    <button onclick="logResponse('${guest}', 'Talvez')">Talvez</button>
-                    <button onclick="logResponse('${guest}', 'Não')">Não</button>`;
-                guestList.appendChild(li);
-            });
-
-            modal.style.display = 'flex';
-        }
-
-        function confirmAllGuests(response) {
-            const uuid = getUUIDFromURL();
-            const guests = uuidGuests[uuid] || [];
-
-            guests.forEach(guest => {
-                logResponse(guest, response);
-            });
-
-            closeMultipleGuestsModal();
-        }
-
-        function closeMultipleGuestsModal() {
-            const modal = document.getElementById('multipleGuestsModal');
-            modal.style.display = 'none';
-        }
-
-        function logResponse(guest, response) {
-            const uuid = getUUIDFromURL();
-            console.log(`Convidado: ${guest}, UUID: ${uuid}, Resposta: ${response}`);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const uuid = getUUIDFromURL();
-            if (uuid) {
-                displayGuestInfo(uuid);
-            }
-        });
 
         function showGuestsDialog(response) {
-            currentResponse = response;
+            currentResponse = response; // Armazena a resposta clicada ('Sim', 'Talvez', 'Não')
             const uuid = getUUIDFromURL();
             const guests = uuidGuests[uuid]?.[0]?.split(';') || [];
-            
+
+            // Se for só 1 convidado ou nenhum, trata direto
             if (guests.length <= 1) {
-                handleSingleGuestResponse(guests[0], response);
-                return;
+                const guestName = guests[0] || "Convidado"; // Usa "Convidado" se não houver nome
+                handleSingleGuestResponse(guestName, response);
+                return; // Não abre o dialog
             }
 
+            // Se forem múltiplos convidados, monta o dialog
             const guestsListElement = document.getElementById('guestsList');
             guestsListElement.innerHTML = guests.map(guest => `
-                <div class="guest-item">
+                <div class="guest-item" data-guest="${guest}">
                     <span class="guest-name-label">${guest}</span>
                     <div class="guest-buttons">
-                        <button class="response-button" onclick="setGuestResponse('${guest}', 'Sim')">Sim</button>
-                        <button class="response-button" onclick="setGuestResponse('${guest}', 'Talvez')">Talvez</button>
-                        <button class="response-button" onclick="setGuestResponse('${guest}', 'Não')">Não</button>
+                        <button class="response-button" onclick="setGuestResponse(this, '${guest}', 'Sim')">Sim</button>
+                        <button class="response-button" onclick="setGuestResponse(this, '${guest}', 'Não')">Não</button>
+                        <button class="response-button" onclick="setGuestResponse(this, '${guest}', 'Talvez')">Talvez</button>
                     </div>
                 </div>
             `).join('');
 
-            document.getElementById('guestsDialog').style.display = 'flex';
-        }
-
-        function setGuestResponse(guest, response) {
-            selectedResponses[guest] = response;
-            
-            // Atualiza visual dos botões
-            const guestItem = document.querySelector(`[onclick="setGuestResponse('${guest}', '${response}')"]`).parentElement;
-            guestItem.querySelectorAll('.response-button').forEach(button => {
-                button.classList.remove('selected');
-                if (button.textContent === response) {
-                    button.classList.add('selected');
+            // Pré-seleciona a opção clicada para todos inicialmente
+            guests.forEach(guest => {
+                selectedResponses[guest] = response; // Define a resposta inicial
+                const guestItem = guestsListElement.querySelector(`.guest-item[data-guest="${guest}"]`);
+                if (guestItem) {
+                    const buttons = guestItem.querySelectorAll('.response-button');
+                    buttons.forEach(button => {
+                        if (button.textContent === response) {
+                            button.classList.add('selected');
+                        } else {
+                            button.classList.remove('selected');
+                        }
+                    });
                 }
             });
+
+
+            const dialog = document.getElementById('guestsDialog');
+            const dialogContent = document.querySelector('.guests-dialog-content');
+
+            dialog.style.display = 'flex';
+            setTimeout(() => {
+                dialog.classList.add('show');
+                setTimeout(() => {
+                    dialogContent.classList.add('show');
+                }, 50);
+            }, 10);
+        }
+
+        // Atualiza setGuestResponse para receber o elemento botão clicado
+        function setGuestResponse(buttonElement, guest, response) {
+            selectedResponses[guest] = response;
+
+            // Remove 'selected' de outros botões no mesmo grupo e adiciona ao clicado
+            const buttonGroup = buttonElement.parentElement;
+            buttonGroup.querySelectorAll('.response-button').forEach(button => {
+                button.classList.remove('selected');
+            });
+            buttonElement.classList.add('selected');
+        }
+
+
+        function closeGuestsDialog() {
+            const dialog = document.getElementById('guestsDialog');
+            const dialogContent = document.querySelector('.guests-dialog-content');
+
+            dialogContent.classList.remove('show');
+            dialog.classList.remove('show');
+
+            setTimeout(() => {
+                dialog.style.display = 'none';
+                selectedResponses = {}; // Limpa as respostas ao fechar
+            }, 300);
         }
 
         function confirmAllResponses() {
             const uuid = getUUIDFromURL();
+            // As respostas já foram atualizadas individualmente ou pré-definidas no showGuestsDialog
+            // Apenas verifica se todos têm uma resposta (se necessário, ou assume a inicial)
             const guests = uuidGuests[uuid]?.[0]?.split(';') || [];
-            
-            // Se algum convidado não teve resposta definida, usa a resposta atual
             guests.forEach(guest => {
                 if (!selectedResponses[guest]) {
+                    // Se algum convidado ficou sem resposta marcada (improvável com a pré-seleção),
+                    // atribui a resposta original clicada ('currentResponse')
                     selectedResponses[guest] = currentResponse;
                 }
             });
 
-            // Gera o log report
-            const report = generateReport(uuid, selectedResponses);
-            
-            // Envia para o Telegram
-            sendToTelegram(report);
 
-            // Mostra modal de agradecimento
-            showThankYouModal(currentResponse);
-            
+            const report = generateReport(uuid, selectedResponses);
+            sendToTelegram(report);
+            // Mostra a imagem de agradecimento correspondente à *resposta inicial clicada*
+            showThankYouImage(currentResponse);
             closeGuestsDialog();
+            // Fecha o modal principal também
+            closeModal();
         }
+
 
         function handleSingleGuestResponse(guest, response) {
             const uuid = getUUIDFromURL();
             const report = generateReport(uuid, { [guest]: response });
-            
             sendToTelegram(report);
-            showThankYouModal(response);
+            // Mostra a imagem de agradecimento
+            showThankYouImage(response);
+            // Fecha o modal principal
+            closeModal();
         }
 
+        function closeModal() {
+            const modal = document.getElementById('inviteModal');
+            const modalContent = modal.querySelector('.modal-content');
+            if (modal.style.display !== 'none') {
+                modalContent.classList.remove('show');
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 500); // Tempo da transição
+            }
+        }
+
+
         function generateReport(uuid, responses) {
-            const timestamp = new Date().toLocaleString('pt-BR');
-            let report = `🎉 Novo RSVP recebido!\n\n`;
-            report += `📅 Data: ${timestamp}\n`;
-            report += `🔑 UUID: ${uuid}\n\n`;
-            
+            const timestamp = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+            let report = `<b>🎉 Novo RSVP Recebido! 🎉</b>\n\n`;
+            report += `<b>📅 Data/Hora:</b> ${timestamp}\n`;
+            // report += `🔑 UUID: ${uuid}\n\n`; // UUID pode não ser necessário no report final
+            report += `<b>👤 Convidado(s):</b>\n`;
+
             Object.entries(responses).forEach(([guest, response]) => {
                 const emoji = response === 'Sim' ? '✅' : response === 'Talvez' ? '❓' : '❌';
-                report += `${emoji} ${guest}: ${response}\n`;
+                report += `${emoji} ${guest}: <b>${response}</b>\n`;
             });
-            
+
             return report;
         }
 
+
         async function sendToTelegram(message) {
+            console.log("Enviando para Telegram:", message); // Log para debug
             try {
                 const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json', },
                     body: JSON.stringify({
                         chat_id: TELEGRAM_CHANNEL_ID,
                         text: message,
-                        parse_mode: 'HTML'
+                        parse_mode: 'HTML' // Usar HTML para negrito etc.
                     })
                 });
-                
+                const data = await response.json(); // Pega a resposta da API
                 if (!response.ok) {
-                    console.error('Erro ao enviar mensagem para o Telegram');
+                    console.error('Erro ao enviar mensagem para o Telegram:', data);
+                } else {
+                    console.log('Mensagem enviada com sucesso:', data);
                 }
             } catch (error) {
-                console.error('Erro na requisição:', error);
+                console.error('Erro na requisição para o Telegram:', error);
             }
         }
 
+        // Função showThankYouModal (mantida, chamada se não houver showThankYouImage)
         function showThankYouModal(response) {
             const modalInner = document.querySelector('.modal-inner');
             let message = '';
-            
+            let title = "Obrigado pelo Retorno!";
+
             switch(response) {
                 case 'Sim':
-                    message = 'Estamos ansiosos para celebrar com você. Enviaremos mais detalhes em breve.';
+                    message = 'Mal podemos esperar para celebrar com você! Mais detalhes serão enviados em breve. 🥳';
                     break;
                 case 'Talvez':
-                    message = 'Aguardamos ansiosamente sua confirmação ou atualização sobre sua disponibilidade.';
+                    message = 'Entendido! Aguardamos sua confirmação final quando puder. 😊';
                     break;
                 case 'Não':
-                    message = 'Obrigado por nos informar. Não há problema, esperamos que você esteja bem e que possamos nos encontrar em breve.';
+                    message = 'Que pena que não poderá comparecer. Sentiremos sua falta! Agradecemos por avisar. ❤️';
                     break;
+                default:
+                    title = "Resposta Registrada!"
+                    message = "Sua resposta foi registrada com sucesso."
             }
 
+            // Substitui o conteúdo do modal pelo agradecimento
             modalInner.innerHTML = `
                 <div class="thank-you-modal">
-                    <h2 class="thank-you-title">Obrigado pelo Retorno!</h2>
+                    <h2 class="thank-you-title">${title}</h2>
                     <p class="thank-you-message">${message}</p>
+                    <button class="back-button" style="margin-top: 20px; background-color: var(--accent-color);" onclick="closeModal()">Fechar</button>
                 </div>
             `;
+
+            // Garante que o modal está visível se já não estiver
+            const modal = document.getElementById('inviteModal');
+            const modalContent = modal.querySelector('.modal-content');
+            if(modal.style.display === 'none') {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('show');
+                    modalContent.classList.add('show');
+                }, 50)
+            }
         }
 
-        function closeGuestsDialog() {
-            document.getElementById('guestsDialog').style.display = 'none';
-            selectedResponses = {};
-        }
 
-        document.querySelectorAll('.circular-button').forEach((button, index) => {
+        // Adiciona listeners aos botões usando data attribute
+        document.querySelectorAll('.circular-button').forEach(button => {
             button.addEventListener('click', () => {
-                const responses = ['Sim', 'Talvez', 'Não'];
-                showGuestsDialog(responses[index]);
+                const response = button.getAttribute('data-response'); // Pega 'Sim', 'Talvez' ou 'Não'
+                showGuestsDialog(response);
+            });
+        });
+
+        // --- Inicialização ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const uuid = getUUIDFromURL();
+            if (uuid) {
+                displayGuestInfo(uuid);
+            } else {
+                displayGuestInfo(null); // Mostra nome genérico se não houver UUID
+            }
+
+            setupFilmRoll(); // Configura o rolo de filme ao carregar a página
+
+            // Inicia música em volume baixo e tenta autoplay
+            backgroundMusic.volume = 0.3;
+            
+            // Tenta iniciar a música automaticamente
+            backgroundMusic.play().then(() => {
+                // Se conseguir tocar, atualiza interface
+                musicPlaying = true;
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            }).catch(error => {
+                // Se for bloqueado (comportamento esperado), mantém o ícone de play
+                console.log("Autoplay bloqueado pelo navegador. O usuário precisa interagir primeiro.", error);
+                musicPlaying = false;
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
             });
         });
     </script>
