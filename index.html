@@ -663,6 +663,13 @@
         const TELEGRAM_BOT_TOKEN = '7790968479:AAFWGQcuxa2sy95191i0IjNAFAZNDspDLXI';
         const TELEGRAM_CHANNEL_ID = '-1002378516159';
 
+        // Dados dos convidados (mantido)
+        const uuidGuests = {
+            '3432420a-d313-499c-97e7-a7c8c8030bba': ['Keytiane Ferreira'],
+            '4fff8a0f-db03-4be5-aa83-f94d2cc0d157': ['Paul McCartney'],
+            '25f8cd16-ba08-4c32-9563-996302d4468a': ['Mick Jagger;Keith Richards;Ronnie Wood'],
+        };
+
         let selectedResponses = {};
         let currentResponse = '';
         let musicPlaying = false;
@@ -799,16 +806,16 @@
         function showThankYouImage(response) {
             const thankYouImage = document.getElementById('thankYouImage');
             let imageSrc = '';
-            if (response === 'Sim') imageSrc = 'thank-you-yes.jpg';
-            else if (response === 'Talvez') imageSrc = 'thank-you-maybe.jpg';
-            else imageSrc = 'thank-you-no.jpg';
+            if (response === 'Sim') imageSrc = 'thank-you-yes.png';
+            else if (response === 'Talvez') imageSrc = 'thank-you-maybe.png';
+            else imageSrc = 'thank-you-no.png';
 
             if (imageSrc) { // Só mostra se tiver uma imagem definida
                 thankYouImage.src = imageSrc;
                 thankYouImage.classList.add('show');
                 setTimeout(() => {
                     thankYouImage.classList.remove('show');
-                }, 5000);
+                }, 30000);
             } else {
                 // Se não houver imagem específica, talvez mostrar a modal de agradecimento
                 showThankYouModal(response);
@@ -829,13 +836,6 @@
                 }, 500); // Tempo da transição do modal
             }
         });
-
-        // Dados dos convidados (mantido)
-        const uuidGuests = {
-            '3432420a-d313-499c-97e7-a7c8c8030bba': ['Keytiane Ferreira'],
-            '4fff8a0f-db03-4be5-aa83-f94d2cc0d157': ['Paul McCartney'],
-            '25f8cd16-ba08-4c32-9563-996302d4468a': ['Mick Jagger;Keith Richards;Ronnie Wood'],
-        };
 
         function getUUIDFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -1119,5 +1119,6 @@
             });
         });
     </script>
+    <script src="app.js?v=1.0.1"></script>
 </body>
 </html>
