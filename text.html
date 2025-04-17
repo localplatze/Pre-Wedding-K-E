@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Mensagens para Convidados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .message {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Mensagens para Convidados</h1>
+    
+    <button onclick="generateAllMessages()">Gerar Todas as Mensagens</button>
+    
+    <div id="messagesContainer"></div>
+
+    <script>
+        const uuidGuests = {
+            // Primeira parte (atualizada)
+            'e3a9f1a2-5d8c-4a7e-b6d2-3f4c5e6d7a8b': ['Edilaine Rocha,M'],
+            'e8acb29f-348b-46d5-806d-72bfdbee9559': ['Amélia Emmely,M'],
+            '658d2323-d379-47c4-9bc9-2d653ecebb19': ['Manoel Roberto;Luciene Medeiros'],
+            '1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p': ['Hulstine Medeiros,H'],
+            '9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f': ['Lívia Medeiros,M'],
+            '83d20876-0eac-43aa-a7ce-ee1473266c35': ['Maria Vitória;Gilclys Costa'],
+            // Adicione os demais convidados aqui...
+        };
+
+        function generateMessage(names, uuid) {
+            // Verifica se é um grupo ou indivíduo
+            const isGroup = names.includes(';');
+            const isSingle = names.includes(',');
+            
+            let nameList, isFemale;
+            
+            if (isSingle) {
+                // Caso individual
+                const [name, gender] = names.split(',');
+                nameList = [name];
+                isFemale = gender === 'M';
+            } else if (isGroup) {
+                // Caso grupo
+                nameList = names.split(';');
+                isFemale = false; // Para grupos, usamos o neutro (masculino plural)
+            } else {
+                // Caso individual sem gênero especificado (assume masculino)
+                nameList = [names];
+                isFemale = false;
+            }
+            
+            // Determina as variações de texto
+            const greeting = isGroup 
+                ? `Queridos ${nameList.join(' e ')}` 
+                : isFemale 
+                    ? `Querida ${nameList[0]}` 
+                    : `Querido ${nameList[0]}`;
+            
+            const pronoun = isGroup ? 'vocês' : 'você';
+            const verbLose = isGroup ? 'percam' : 'perca';
+            const verbShare = isGroup ? 'compartilhem' : 'compartilhe';
+            
+            return `
+            ${greeting},
+
+            Estamos muito felizes em compartilhar com ${pronoun} a data do nosso casamento!
+
+            Para nos ajudar nos preparativos, criamos um save the date especial com todos os detalhes. É só clicar no link abaixo para confirmar sua presença (ou não) - assim já garantimos que ${pronoun} não ${verbLose} nada! 💌
+
+            🔗 https://localplatze.github.io/Pre-Wedding-K-E/?uuid=${uuid}
+
+            Obs.: Este link é exclusivo para ${pronoun}, então pedimos que não ${verbShare}.
+
+            Qualquer dúvida, é só nos avisar! Mal podemos esperar para comemorar juntos.
+
+            Com carinho,
+            Elian & Keytiane
+            `;
+        }
+
+        function generateAllMessages() {
+            const container = document.getElementById('messagesContainer');
+            container.innerHTML = '';
+            
+            for (const [uuid, [names]] of Object.entries(uuidGuests)) {
+                const message = generateMessage(names, uuid);
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                
+                const uuidHeading = document.createElement('h3');
+                uuidHeading.textContent = `UUID: ${uuid} - Nomes: ${names}`;
+                
+                const messageContent = document.createElement('pre');
+                messageContent.textContent = message;
+                
+                messageDiv.appendChild(uuidHeading);
+                messageDiv.appendChild(messageContent);
+                container.appendChild(messageDiv);
+            }
+        }
+    </script>
+</body>
+</html>
