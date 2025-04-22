@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Convidados do Casamento</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Lista de Convidados</h1>
+            <p class="subtitle">Gerencie quem vem celebrar conosco!</p>
+        </header>
+
+        <div class="add-guest-form">
+            <h2>Adicionar Novo Convidado</h2>
+            <input type="text" id="guest-name-input" placeholder="Nome do Convidado ou Família">
+            <button id="add-guest-btn">Adicionar</button>
+        </div>
+
+        <div class="data-management">
+            <h2>Gerenciar Dados</h2>
+            <button id="export-btn">Exportar Lista (JSON)</button>
+            <label for="import-file" class="import-label-btn">Importar Lista (JSON)</label>
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+            <p class="import-help">Ao importar, a lista atual será substituída pela do arquivo.</p>
+        </div>
+
+        <div class="guest-list-section">
+            <h2>Convidados</h2>
+            <div class="filters">
+                <label for="filter-response">Filtrar por Resposta:</label>
+                <select id="filter-response">
+                    <option value="all">Todos</option>
+                    <option value="Não Respondido">Não Respondido</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                    <option value="Talvez">Talvez</option>
+                </select>
+                <button id="clear-filters-btn">Limpar Filtro</button>
+                <span id="guest-count">Total: 0</span>
+            </div>
+            <table id="guest-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Convite Enviado?</th>
+                        <th>Resposta</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="guest-list-body">
+                    <!-- Linhas de convidados serão inseridas aqui pelo JavaScript -->
+                </tbody>
+            </table>
+             <p id="no-guests-message" class="hidden">Nenhum convidado na lista ainda.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Feito com ❤️</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

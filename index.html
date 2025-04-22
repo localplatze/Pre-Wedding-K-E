@@ -322,7 +322,7 @@
 
         .letter.animate {
             animation: expandLetter 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            animation-delay: 0.3s; /* Pequeno delay para a aba levantar primeiro */
+            animation-delay: 0.5s; /* Ajuste este valor se necessário (era 0.3s) */
         }
 
         @keyframes expandLetter {
@@ -538,6 +538,121 @@
             .film-photo { width: 80px; height: 80px; margin: 0 5px;}
             .circular-button { width: 60px; height: 60px; }
             .circular-button svg { width: 28px; height: 28px; }
+            .polaroid-grid { gap: 25px; }
+            .polaroid-photo { width: 180px; padding: 10px 10px 40px 10px; }
+            .polaroid-photo img { height: 160px; }
+            #photoGalleryContainer h2 { font-size: 2em; }
+        }
+
+        @media (max-width: 480px) {
+            .polaroid-grid { gap: 20px; }
+            .polaroid-photo { width: 140px; padding: 8px 8px 30px 8px; }
+            .polaroid-photo img { height: 120px; }
+            #photoGalleryContainer h2 { font-size: 1.8em; }
+            .lightbox-close { top: 15px; right: 20px; font-size: 30px;}
+         }
+
+        #photoGalleryContainer {
+            display: none; /* Começa escondido */
+            width: 100%;
+            max-width: 900px; /* Limite a largura da galeria */
+            margin: 40px auto; /* Espaçamento superior/inferior e centralizado */
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #photoGalleryContainer h2 {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em; /* Tamanho maior para o título da galeria */
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .polaroid-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px; /* Espaço entre as fotos */
+        }
+
+        .polaroid-photo {
+            background: white;
+            padding: 15px 15px 60px 15px; /* Espaço extra embaixo para parecer polaroid */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+            width: 220px; /* Largura da polaroid */
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Para posicionar texto se necessário */
+            /* Leve rotação para dar um ar mais casual - pode ser aleatório com JS se preferir */
+        }
+        .polaroid-photo:nth-child(3n+1) { transform: rotate(-3deg); }
+        .polaroid-photo:nth-child(3n+2) { transform: rotate(2deg); }
+        .polaroid-photo:nth-child(3n+3) { transform: rotate(-1deg); }
+
+
+        .polaroid-photo:hover {
+            transform: scale(1.08) rotate(0deg) !important; /* Aumenta e endireita no hover */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+            z-index: 10; /* Traz para frente no hover */
+        }
+
+        .polaroid-photo img {
+            display: block;
+            width: 100%;
+            height: 200px; /* Altura da imagem dentro da polaroid */
+            object-fit: cover; /* Garante que a imagem cubra sem distorcer */
+            border: 1px solid #eee; /* Borda sutil na imagem */
+        }
+
+        /* --- Estilos para Lightbox (Modal de Ampliação) --- */
+        .lightbox {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            z-index: 1500; /* Acima de quase tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Permite scroll se a imagem for muito grande */
+            background-color: rgba(0, 0, 0, 0.85); /* Fundo escuro translúcido */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            animation: zoomIn 0.4s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.8); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
         }
     </style>
 </head>
@@ -546,6 +661,18 @@
         <img class="tv-save" src="tv_save_the_date.png" alt="Save the Date">
         <img class="iv-card" src="iv_card.png" alt="Card" onclick="startAnimation()">
         <img class="tv-subtitle" src="tv_subtitle.png" alt="Subtitle">
+    </div>
+
+    <div id="photoGalleryContainer">
+        <h2>Nossas Memórias</h2>
+        <div class="polaroid-grid" id="polaroidGrid">
+            <!-- As fotos em estilo polaroid serão adicionadas aqui pelo JavaScript -->
+        </div>
+    </div>
+
+    <div id="lightboxModal" class="lightbox" onclick="closeLightboxOnClick(event)">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img class="lightbox-content" id="lightboxImage" alt="Foto Ampliada">
     </div>
 
     <!-- Envelope Animation -->
@@ -666,6 +793,7 @@
         // Dados dos convidados (mantido)
         const uuidGuests = {
             // Primeira parte (atualizada)
+            '123': ['Teste'],
             'e3a9f1a2-5d8c-4a7e-b6d2-3f4c5e6d7a8b': ['Edilaine Rocha'],
             'e8acb29f-348b-46d5-806d-72bfdbee9559': ['Amélia Emmely'],
             '658d2323-d379-47c4-9bc9-2d653ecebb19': ['Manoel Roberto;Luciene Medeiros'],
@@ -807,6 +935,7 @@
         let selectedResponses = {};
         let currentResponse = '';
         let musicPlaying = false;
+        let hasConfirmed = false;
         const backgroundMusic = document.getElementById('backgroundMusic');
         const musicPlayer = document.getElementById('musicPlayer');
         const playIcon = document.getElementById('playIcon');
@@ -1089,24 +1218,21 @@
 
         function confirmAllResponses() {
             const uuid = getUUIDFromURL();
-            // As respostas já foram atualizadas individualmente ou pré-definidas no showGuestsDialog
-            // Apenas verifica se todos têm uma resposta (se necessário, ou assume a inicial)
             const guests = uuidGuests[uuid]?.[0]?.split(';') || [];
             guests.forEach(guest => {
                 if (!selectedResponses[guest]) {
-                    // Se algum convidado ficou sem resposta marcada (improvável com a pré-seleção),
-                    // atribui a resposta original clicada ('currentResponse')
                     selectedResponses[guest] = currentResponse;
                 }
             });
 
-
             const report = generateReport(uuid, selectedResponses);
-            sendToTelegram(report);
-            // Mostra a imagem de agradecimento correspondente à *resposta inicial clicada*
+            sendToTelegram(report).then(() => { // Espera o envio (opcional)
+                 markAsConfirmed(uuid); // <- MARCA COMO CONFIRMADO
+                 displayContentBasedOnConfirmation(uuid); // <- ATUALIZA A UI
+            });
+
             showThankYouImage(currentResponse);
             closeGuestsDialog();
-            // Fecha o modal principal também
             closeModal();
         }
 
@@ -1114,10 +1240,12 @@
         function handleSingleGuestResponse(guest, response) {
             const uuid = getUUIDFromURL();
             const report = generateReport(uuid, { [guest]: response });
-            sendToTelegram(report);
-            // Mostra a imagem de agradecimento
+            sendToTelegram(report).then(() => { // Espera o envio (opcional)
+                 markAsConfirmed(uuid); // <- MARCA COMO CONFIRMADO
+                 displayContentBasedOnConfirmation(uuid); // <- ATUALIZA A UI
+            });
+
             showThankYouImage(response);
-            // Fecha o modal principal
             closeModal();
         }
 
@@ -1215,6 +1343,31 @@
             }
         }
 
+        // --- Função para marcar como confirmado (USA LOCALSTORAGE) ---
+        function markAsConfirmed(uuid) {
+            if (uuid) {
+                try {
+                    localStorage.setItem(`rsvp_confirmed_${uuid}`, 'true');
+                    hasConfirmed = true; // Atualiza o estado na memória também
+                    console.log(`UUID ${uuid} marcado como confirmado no localStorage.`);
+                } catch (e) {
+                    console.error("Erro ao salvar no localStorage:", e);
+                }
+            }
+        }
+
+        // --- Função para verificar se já confirmou (USA LOCALSTORAGE) ---
+        function checkIfConfirmed(uuid) {
+            if (uuid) {
+                try {
+                    return localStorage.getItem(`rsvp_confirmed_${uuid}`) === 'true';
+                } catch (e) {
+                    console.error("Erro ao ler do localStorage:", e);
+                    return false;
+                }
+            }
+            return false;
+        }
 
         // Adiciona listeners aos botões usando data attribute
         document.querySelectorAll('.circular-button').forEach(button => {
@@ -1227,31 +1380,123 @@
         // --- Inicialização ---
         document.addEventListener('DOMContentLoaded', () => {
             const uuid = getUUIDFromURL();
+
+            // Verifica o estado de confirmação PRIMEIRO
+            hasConfirmed = checkIfConfirmed(uuid);
+
+            // Exibe o conteúdo correto baseado na confirmação
+            displayContentBasedOnConfirmation(uuid);
+
+            // Configura informações do convidado (sempre, mesmo se já confirmado)
             if (uuid) {
                 displayGuestInfo(uuid);
             } else {
-                displayGuestInfo(null); // Mostra nome genérico se não houver UUID
+                displayGuestInfo(null);
             }
 
-            setupFilmRoll(); // Configura o rolo de filme ao carregar a página
+             // Configura o rolo de filme (ele será escondido depois se hasConfirmed for true)
+            setupFilmRoll();
 
-            // Inicia música em volume baixo e tenta autoplay
+            // Lógica da música (como estava)
             backgroundMusic.volume = 0.3;
-            
-            // Tenta iniciar a música automaticamente
             backgroundMusic.play().then(() => {
-                // Se conseguir tocar, atualiza interface
                 musicPlaying = true;
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'block';
             }).catch(error => {
-                // Se for bloqueado (comportamento esperado), mantém o ícone de play
-                console.log("Autoplay bloqueado pelo navegador. O usuário precisa interagir primeiro.", error);
+                console.log("Autoplay bloqueado.", error);
                 musicPlaying = false;
                 playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
             });
+
+             console.log("Página carregada. Estado de confirmação:", hasConfirmed);
         });
+
+        function populatePhotoGallery() {
+            const grid = document.getElementById('polaroidGrid');
+            if (!grid) return;
+            grid.innerHTML = ''; // Limpa a grade
+
+            couplePhotos.forEach(photoSrc => {
+                const photoDiv = document.createElement('div');
+                photoDiv.className = 'polaroid-photo';
+
+                const img = document.createElement('img');
+                img.src = photoSrc;
+                img.alt = 'Foto do Casal';
+                // Adiciona evento de clique para abrir lightbox
+                img.onclick = () => openLightbox(photoSrc);
+
+                photoDiv.appendChild(img);
+                grid.appendChild(photoDiv);
+            });
+             console.log("Galeria Polaroid populada.");
+        }
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImg = document.getElementById('lightboxImage');
+            if (lightbox && lightboxImg) {
+                lightboxImg.src = imageSrc;
+                lightbox.style.display = 'flex'; // Usa flex para centralizar
+                 console.log("Lightbox aberta com:", imageSrc);
+            }
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightboxModal');
+            if (lightbox) {
+                lightbox.style.display = 'none';
+                document.getElementById('lightboxImage').src = ''; // Limpa a imagem
+                 console.log("Lightbox fechada.");
+            }
+        }
+
+         // Fecha lightbox se clicar fora da imagem
+        function closeLightboxOnClick(event) {
+             if (event.target.id === 'lightboxModal') {
+                 closeLightbox();
+             }
+         }
+
+         function displayContentBasedOnConfirmation(uuid) {
+             const initialContainer = document.querySelector('.container');
+             const filmRoll = document.getElementById('filmRollContainer');
+             const galleryContainer = document.getElementById('photoGalleryContainer');
+             const card = document.querySelector('.iv-card');
+             const saveTheDateText = document.querySelector('.tv-save');
+             const subtitleText = document.querySelector('.tv-subtitle');
+
+
+            if (hasConfirmed) {
+                 console.log("Usuário já confirmou. Mostrando galeria.");
+                // Esconde conteúdo inicial
+                 if(initialContainer) initialContainer.style.display = 'none'; // Pode esconder o container inteiro
+                 // Ou esconder elementos específicos:
+                 // if(card) card.style.display = 'none';
+                 // if(saveTheDateText) saveTheDateText.style.display = 'none';
+                 // if(subtitleText) subtitleText.style.display = 'none';
+
+                if(filmRoll) filmRoll.style.display = 'none'; // Esconde rolo de filme
+
+                // Mostra galeria e popula
+                if(galleryContainer) {
+                    galleryContainer.style.display = 'block';
+                    populatePhotoGallery();
+                }
+            } else {
+                 console.log("Usuário não confirmou. Mostrando convite.");
+                // Garante que conteúdo inicial está visível
+                 if(initialContainer) initialContainer.style.display = 'flex'; // Ou o display original
+                 // if(card) card.style.display = 'block';
+                 // if(saveTheDateText) saveTheDateText.style.display = 'block';
+                 // if(subtitleText) subtitleText.style.display = 'block';
+
+                if(filmRoll) filmRoll.style.display = 'flex'; // Mostra rolo de filme (ou o display original)
+                if(galleryContainer) galleryContainer.style.display = 'none'; // Esconde galeria
+            }
+        }
     </script>
     <script src="app.js?v=1.0.1"></script>
 </body>
