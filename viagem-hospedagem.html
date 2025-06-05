@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viagem e Hospedagem - Elian & Keyti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F;
+            --azul-marinho: #191970;
+            --azul-marinho-suave: #4682B4;
+            --dourado-suave: #D4AF37;
+            --creme: #FFF8DC;
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--preto-suave); background-color: var(--creme); overflow-x: hidden; }
+
+        .main-content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        header.page-header { text-align: center; padding: 30px 20px 10px; background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0)); width: 100%; }
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--verde-oliva); margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .names span { color: var(--azul-marinho-suave); }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.5em; color: var(--azul-marinho); text-align: center; margin-top: 20px; margin-bottom: 10px; }
+        .page-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15em; color: var(--preto-suave); text-align: center; max-width: 700px; margin: 0 auto 25px auto; line-height: 1.6; }
+        .decorative-line { width: 80px; height: 2px; background-color: var(--dourado-suave); margin: 0 auto 30px auto; }
+        .content-container { width: 100%; max-width: 900px; margin: 0 auto 40px auto; padding: 20px 30px; background-color: rgba(255,255,255,0.7); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+        .info-section { margin-bottom: 35px; }
+        .info-section h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--verde-oliva);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--verde-oliva-claro);
+        }
+        .info-section p, .info-section ul li {
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-section ul li i {
+            color: var(--azul-marinho-suave);
+            margin-right: 10px;
+            width: 20px; /* Alinhamento dos ícones */
+        }
+        .info-section a {
+            color: var(--azul-marinho);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .info-section a:hover {
+            text-decoration: underline;
+            color: var(--dourado-suave);
+        }
+        .hotel-card {
+            background-color: var(--branco);
+            border: 1px solid var(--verde-oliva-claro);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .hotel-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            color: var(--preto-suave);
+            margin-bottom: 5px;
+        }
+
+        nav { text-align: center; padding: 20px; background-color: var(--azul-marinho); width: 100%; }
+        nav a { color: var(--creme); margin: 0 15px; text-decoration: none; font-size: 1.1em; transition: color 0.3s ease; }
+        nav a:hover { color: var(--dourado-suave); }
+        .music-player { position: fixed; bottom: 20px; right: 20px; background-color: var(--verde-oliva); padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000; }
+        .music-player button { background: none; border: none; color: var(--creme); font-size: 1.5em; cursor: pointer; padding: 5px; transition: color 0.3s ease; }
+        .music-player button:hover { color: var(--dourado-suave); }
+        #volume-control { width: 80px; margin-left: 10px; accent-color: var(--dourado-suave); }
+        footer { text-align: center; padding: 30px 20px; background-color: var(--azul-marinho); color: var(--creme); font-size: 0.9em; width: 100%; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .names { font-size: 2.8em; }
+            .page-title { font-size: 2em; }
+            .page-subtitle { font-size: 1.05em; }
+            .info-section h3 { font-size: 1.6em; }
+        }
+        @media (max-width: 480px) {
+            .names { font-size: 2.2em; }
+            .page-title { font-size: 1.7em; }
+            nav a { margin: 0 8px; font-size: 1em;}
+            .content-container { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <div class="main-content visible">
+        <header class="page-header">
+            <h1 class="names">Elian <span>&</span> Keyti</h1>
+        </header>
+
+        <h2 class="page-title">Viagem e Hospedagem</h2>
+        <p class="page-subtitle">Para nossos queridos convidados que vêm de longe, preparamos algumas dicas para facilitar sua estadia e tornar sua vinda ainda mais especial!</p>
+        <div class="decorative-line"></div>
+
+        <div class="content-container">
+            <section class="info-section">
+                <h3>Como Chegar à [Nome da Cidade/Região]</h3>
+                <p>Se você vem de avião, o aeroporto mais próximo é o <strong>Aeroporto Internacional de [Nome do Aeroporto (Sigla)]</strong>, localizado a aproximadamente [Distância] km do centro da cidade.</p>
+                <ul>
+                    <li><i class="fas fa-plane-arrival"></i><strong>Aeroporto:</strong> [Nome do Aeroporto] ([Sigla])</li>
+                    <li><i class="fas fa-car"></i><strong>De Carro:</strong> Principais rodovias de acesso: [BR-XXX, SP-YYY]. Utilize aplicativos como Waze ou Google Maps para melhores rotas.</li>
+                    <li><i class="fas fa-bus"></i><strong>De Ônibus:</strong> A rodoviária de [Nome da Cidade] recebe ônibus de diversas localidades. Verifique horários e companhias em sites como <a href="https://www.clickbus.com.br" target="_blank">ClickBus</a> ou <a href="https://www.buscaonibus.com.br" target="_blank">BuscaOnibus</a>.</li>
+                </ul>
+            </section>
+
+            <section class="info-section">
+                <h3>Sugestões de Hospedagem</h3>
+                <p>Selecionamos algumas opções de hotéis próximos aos locais da cerimônia e recepção, com diferentes faixas de preço. Recomendamos fazer sua reserva com antecedência!</p>
+                
+                <div class="hotel-card">
+                    <h4><i class="fas fa-hotel"></i> Hotel Elegance Plaza</h4>
+                    <p>Endereço: Rua das Palmeiras, 123, Centro</p>
+                    <p>Contato: (XX) XXXX-XXXX | <a href="https://www.hotelelegance.com.br" target="_blank">www.hotelelegance.com.br</a></p>
+                    <p><em>Observação: Aproximadamente X km do local da cerimônia. Código de desconto: ELIANEKEYTI25 (se houver)</em></p>
+                </div>
+
+                <div class="hotel-card">
+                    <h4><i class="fas fa-concierge-bell"></i> Pousada Recanto Verde</h4>
+                    <p>Endereço: Av. das Flores, 456, Bairro Tranquilo</p>
+                    <p>Contato: (XX) YYYY-YYYY | <a href="https://www.pousadarecantoverde.com" target="_blank">www.pousadarecantoverde.com</a></p>
+                    <p><em>Observação: Ambiente charmoso e tranquilo. Próximo ao local da festa.</em></p>
+                </div>
+
+                <div class="hotel-card">
+                    <h4><i class="fas fa-building"></i> Comfort Inn Express</h4>
+                    <p>Endereço: Rodovia Principal, Km 10</p>
+                    <p>Contato: (XX) ZZZZ-ZZZZ | <a href="https://www.comfortinn.com/cidade" target="_blank">www.comfortinn.com/cidade</a></p>
+                    <p><em>Observação: Ótima opção para quem busca praticidade e bom custo-benefício.</em></p>
+                </div>
+                <!-- Adicione mais hotéis conforme necessário -->
+            </section>
+
+            <section class="info-section">
+                <h3>Salões de Beleza e Barbearias</h3>
+                <p>Para quem desejar se arrumar na cidade, aqui estão algumas sugestões próximas aos hotéis ou locais do evento:</p>
+                <ul>
+                    <li><i class="fas fa-cut"></i><strong>Salão Beleza Pura:</strong> Rua das Orquídeas, 789 - Contato: (XX) AAAA-AAAA</li>
+                    <li><i class="fas fa-chair"></i><strong>Barbearia Dom Bigode:</strong> Av. Central, 101 - Contato: (XX) BBBB-BBBB</li>
+                    <!-- Adicione mais sugestões -->
+                </ul>
+            </section>
+            
+            <p style="text-align:center; font-style:italic; margin-top: 20px;">Se precisarem de mais alguma dica ou ajuda, não hesitem em nos contatar!</p>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="os-noivos.html">Os Noivos</a>
+            <!-- ... outros links ... -->
+            <a href="festa.html">Recepção</a>
+            <a href="viagem-hospedagem.html" style="color: var(--dourado-suave);">Viagem & Hospedagem</a>
+            <a href="presentes-e-mensagens.html">Presentes</a>
+            <a href="pos-evento.html">Pós-Evento</a>
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <audio id="background-music" loop> <source src="audio/wedding_song.mp3" type="audio/mpeg"> </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) { music.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; } 
+                else { music.volume = volumeControl.value; music.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+                isPlaying = !isPlaying;
+            });
+            volumeControl.addEventListener('input', function() { music.volume = this.value; });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

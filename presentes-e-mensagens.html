@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentes e Mensagens - Elian & Keyti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F;
+            --azul-marinho: #191970;
+            --azul-marinho-suave: #4682B4;
+            --dourado-suave: #D4AF37;
+            --creme: #FFF8DC;
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--preto-suave); background-color: var(--creme); overflow-x: hidden; }
+
+        .main-content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        header.page-header { text-align: center; padding: 30px 20px 10px; background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0)); width: 100%; }
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--verde-oliva); margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .names span { color: var(--azul-marinho-suave); }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.5em; color: var(--azul-marinho); text-align: center; margin-top: 20px; margin-bottom: 10px; }
+        .page-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15em; color: var(--preto-suave); text-align: center; max-width: 700px; margin: 0 auto 25px auto; line-height: 1.6; }
+        .decorative-line { width: 80px; height: 2px; background-color: var(--dourado-suave); margin: 0 auto 30px auto; }
+        .content-container { width: 100%; max-width: 800px; margin: 0 auto 40px auto; padding: 20px 30px; background-color: rgba(255,255,255,0.7); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .section-block { margin-bottom: 40px; }
+        .section-block h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--verde-oliva);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .section-block p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .gift-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .gift-option-card {
+            background-color: var(--branco);
+            border: 1px solid var(--verde-oliva-claro);
+            border-radius: 8px;
+            padding: 20px;
+            width: 220px; /* Ajuste conforme necessário */
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .gift-option-card:hover {
+            transform: translateY(-5px);
+        }
+        .gift-option-card i {
+            font-size: 2.5em;
+            color: var(--azul-marinho-suave);
+            margin-bottom: 15px;
+        }
+        .gift-option-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            color: var(--preto-suave);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .gift-option-card a.button {
+            display: inline-block;
+            background-color: var(--verde-oliva);
+            color: var(--branco);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .gift-option-card a.button:hover {
+            background-color: var(--dourado-suave);
+            color: var(--preto-suave);
+        }
+        .pix-info {
+            background-color: #e9f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid var(--verde-oliva);
+            margin-top: 15px;
+        }
+        .pix-info p { font-size: 1em; text-align: left; margin-bottom: 5px; }
+
+        .message-form { margin-top: 20px; }
+        .message-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--preto-suave);
+        }
+        .message-form input[type="text"],
+        .message-form input[type="email"],
+        .message-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--verde-oliva-claro);
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+        }
+        .message-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .message-form button {
+            background-color: var(--azul-marinho);
+            color: var(--creme);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .message-form button:hover {
+            background-color: var(--azul-marinho-suave);
+        }
+        #form-status {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+        nav { text-align: center; padding: 20px; background-color: var(--azul-marinho); width: 100%; }
+        nav a { color: var(--creme); margin: 0 15px; text-decoration: none; font-size: 1.1em; transition: color 0.3s ease; }
+        nav a:hover { color: var(--dourado-suave); }
+        .music-player { position: fixed; bottom: 20px; right: 20px; background-color: var(--verde-oliva); padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000; }
+        .music-player button { background: none; border: none; color: var(--creme); font-size: 1.5em; cursor: pointer; padding: 5px; transition: color 0.3s ease; }
+        .music-player button:hover { color: var(--dourado-suave); }
+        #volume-control { width: 80px; margin-left: 10px; accent-color: var(--dourado-suave); }
+        footer { text-align: center; padding: 30px 20px; background-color: var(--azul-marinho); color: var(--creme); font-size: 0.9em; width: 100%; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .names { font-size: 2.8em; }
+            .page-title { font-size: 2em; }
+            .gift-option-card { width: 100%; max-width: 300px; }
+        }
+        @media (max-width: 480px) {
+            .names { font-size: 2.2em; }
+            .page-title { font-size: 1.7em; }
+            nav a { margin: 0 8px; font-size: 1em;}
+            .content-container { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <div class="main-content visible">
+        <header class="page-header">
+            <h1 class="names">Elian <span>&</span> Keyti</h1>
+        </header>
+
+        <h2 class="page-title">Presentes e Mensagens</h2>
+        <p class="page-subtitle">Sua presença é o nosso maior presente! Mas se desejar nos mimar, ficaremos muito felizes. E não se esqueça de deixar uma mensagem carinhosa!</p>
+        <div class="decorative-line"></div>
+
+        <div class="content-container">
+            <section class="section-block">
+                <h3>Lista de Presentes</h3>
+                <p>Criamos nossa lista de presentes em algumas lojas para facilitar. Você também pode optar por nos presentear com cotas para nossa lua de mel ou um valor via PIX.</p>
+                
+                <div class="gift-options">
+                    <div class="gift-option-card">
+                        <i class="fas fa-store"></i>
+                        <h4>Loja A (Ex: Havan)</h4>
+                        <p>Presentes para nosso lar.</p>
+                        <a href="https://www.linkparalojaa.com.br/listaeliankeyti" target="_blank" class="button">Ver Lista</a>
+                    </div>
+                    <div class="gift-option-card">
+                        <i class="fas fa-couch"></i>
+                        <h4>Loja B (Ex: Magazine Luiza)</h4>
+                        <p>Mais opções para montar nosso cantinho.</p>
+                        <a href="https://www.linkparalojab.com.br/listaeliankeyti" target="_blank" class="button">Ver Lista</a>
+                    </div>
+                    <div class="gift-option-card">
+                        <i class="fas fa-umbrella-beach"></i>
+                        <h4>Cotas Lua de Mel</h4>
+                        <p>Ajude-nos a realizar nossa viagem dos sonhos!</p>
+                        <a href="#pix-details" class="button">Ver Opções</a> <!-- Leva para a seção PIX ou pode ser um link para plataforma específica -->
+                    </div>
+                </div>
+                
+                <div id="pix-details" class="pix-info" style="margin-top:30px;">
+                    <h4><i class="fas fa-qrcode"></i> Presente via PIX</h4>
+                    <p>Se preferir, pode nos presentear diretamente via PIX. Qualquer contribuição será recebida com muito carinho!</p>
+                    <p><strong>Chave PIX (Celular):</strong> (XX) 9XXXX-XXXX (Nome do Noivo/Noiva)</p>
+                    <p><strong>Chave PIX (Email):</strong> emaildosnoivos@provedor.com</p>
+                    <p><em>Após a transferência, se desejar, envie-nos um comprovante para agradecermos!</em></p>
+                </div>
+            </section>
+
+            <div class="decorative-line" style="margin-top: 50px; margin-bottom: 30px;"></div>
+
+            <section class="section-block">
+                <h3>Deixe sua Mensagem</h3>
+                <p>Seu carinho em palavras é um presente que guardaremos para sempre em nossos corações!</p>
+                <form id="messageForm" class="message-form">
+                    <div>
+                        <label for="guestName">Seu Nome:</label>
+                        <input type="text" id="guestName" name="guestName" required>
+                    </div>
+                    <div>
+                        <label for="guestEmail">Seu Email (opcional):</label>
+                        <input type="email" id="guestEmail" name="guestEmail">
+                    </div>
+                    <div>
+                        <label for="guestMessage">Sua Mensagem:</label>
+                        <textarea id="guestMessage" name="guestMessage" required></textarea>
+                    </div>
+                    <button type="submit">Enviar Mensagem</button>
+                    <div id="form-status"></div>
+                </form>
+            </section>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <!-- ... outros links ... -->
+            <a href="viagem-hospedagem.html">Viagem & Hospedagem</a>
+            <a href="presentes-e-mensagens.html" style="color: var(--dourado-suave);">Presentes & Mensagens</a>
+            <a href="pos-evento.html">Pós-Evento</a>
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <audio id="background-music" loop> <source src="audio/wedding_song.mp3" type="audio/mpeg"> </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) { music.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; } 
+                else { music.volume = volumeControl.value; music.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+                isPlaying = !isPlaying;
+            });
+            volumeControl.addEventListener('input', function() { music.volume = this.value; });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Simulação de envio de formulário de mensagem
+            const messageForm = document.getElementById('messageForm');
+            const formStatus = document.getElementById('form-status');
+            if(messageForm) {
+                messageForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    formStatus.textContent = 'Enviando sua mensagem...';
+                    formStatus.style.color = 'var(--azul-marinho)';
+
+                    // Simulação de envio (substituir por lógica real de backend ou serviço)
+                    setTimeout(() => {
+                        formStatus.textContent = 'Mensagem enviada com sucesso! Obrigado! ❤️';
+                        formStatus.style.color = 'var(--verde-oliva)';
+                        messageForm.reset(); // Limpa o formulário
+                        setTimeout(() => formStatus.textContent = '', 5000); // Limpa status
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

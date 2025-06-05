@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Cortejo - Elian & Keyti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- Reset Básico & Variáveis de Cor (Mesmas do index.html) --- */
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F;
+            --azul-marinho: #191970;
+            --azul-marinho-suave: #4682B4;
+            --dourado-suave: #D4AF37;
+            --creme: #FFF8DC;
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--preto-suave);
+            background-color: var(--creme);
+            overflow-x: hidden;
+        }
+
+        /* --- Estilos Gerais (Reutilizados) --- */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header.page-header {
+            text-align: center;
+            padding: 30px 20px 10px;
+            background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0));
+            width: 100%;
+        }
+
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: var(--verde-oliva);
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .names span { color: var(--azul-marinho-suave); }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--azul-marinho);
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 10px; /* Menor margin para o subtítulo */
+        }
+        
+        .page-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            color: var(--preto-suave);
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .decorative-line {
+            width: 80px;
+            height: 2px;
+            background-color: var(--dourado-suave);
+            margin: 0 auto 30px auto;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 1000px; /* Mais largo para grids */
+            margin: 0 auto 40px auto;
+            padding: 20px;
+        }
+        
+        .cortejo-section {
+            margin-bottom: 50px;
+        }
+
+        .cortejo-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--verde-oliva);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        /* Linha decorativa para títulos de seção */
+        .cortejo-section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--dourado-suave);
+            margin: 10px auto 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsivo */
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .person-card {
+            background-color: var(--branco);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 250px; /* Limita largura do card */
+        }
+        .person-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .person-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Fotos redondas */
+            object-fit: cover; /* Garante que a imagem cubra o espaço */
+            margin-bottom: 15px;
+            border: 4px solid var(--verde-oliva-claro);
+        }
+        .person-card.rectangle img { /* Para fotos retangulares se preferir para pais */
+             width: 100%;
+             height: auto;
+             max-height: 200px;
+             border-radius: 5px;
+        }
+
+
+        .person-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            color: var(--azul-marinho);
+            margin-bottom: 5px;
+        }
+
+        .person-card p {
+            font-size: 0.9em;
+            color: var(--preto-suave);
+            font-style: italic;
+        }
+
+        /* --- Navegação, Player, Footer (Mesmos do index.html / os-noivos.html) --- */
+        nav { text-align: center; padding: 20px; background-color: var(--azul-marinho); width: 100%; }
+        nav a { color: var(--creme); margin: 0 15px; text-decoration: none; font-size: 1.1em; transition: color 0.3s ease; }
+        nav a:hover { color: var(--dourado-suave); }
+        .music-player { position: fixed; bottom: 20px; right: 20px; background-color: var(--verde-oliva); padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000; }
+        .music-player button { background: none; border: none; color: var(--creme); font-size: 1.5em; cursor: pointer; padding: 5px; transition: color 0.3s ease; }
+        .music-player button:hover { color: var(--dourado-suave); }
+        #volume-control { width: 80px; margin-left: 10px; accent-color: var(--dourado-suave); }
+        footer { text-align: center; padding: 30px 20px; background-color: var(--azul-marinho); color: var(--creme); font-size: 0.9em; width: 100%; margin-top: auto; }
+        
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .names { font-size: 2.8em; }
+            .page-title { font-size: 2em; }
+            .page-subtitle { font-size: 1.1em; }
+            .cortejo-section-title { font-size: 1.7em; }
+            .grid-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+            .person-card img { width: 120px; height: 120px; }
+        }
+
+        @media (max-width: 480px) {
+            .names { font-size: 2.2em; }
+            .page-title { font-size: 1.7em; }
+            .grid-container { grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */ }
+            .person-card { max-width: 280px; } /* Pode ocupar mais largura se for uma coluna */
+            .person-card img { width: 130px; height: 130px; }
+            nav a { margin: 0 8px; font-size: 1em;}
+        }
+    </style>
+</head>
+<body class="loaded">
+
+    <div class="main-content visible">
+        <header class="page-header">
+            <h1 class="names">Elian <span>&</span> Keyti</h1>
+        </header>
+
+        <h2 class="page-title">Nosso Amado Cortejo</h2>
+        <p class="page-subtitle">Pessoas que amamos e que estarão ao nosso lado neste dia tão especial, abençoando nossa união.</p>
+        <div class="decorative-line"></div>
+
+        <div class="content-container">
+            <!-- Seção Pais -->
+            <section class="cortejo-section">
+                <h3 class="cortejo-section-title">Nossos Pais</h3>
+                <div class="grid-container">
+                    <div class="person-card rectangle"> <!-- Classe 'rectangle' opcional para pais -->
+                        <img src="images/pais-padrinhos/pais_noiva.jpg" alt="Pais da Noiva">
+                        <h4>Nome do Pai & Nome da Mãe da Noiva</h4>
+                        <p>Pais da Noiva</p>
+                    </div>
+                    <div class="person-card rectangle">
+                        <img src="images/pais-padrinhos/pais_noivo.jpg" alt="Pais do Noivo">
+                        <h4>Nome do Pai & Nome da Mãe do Noivo</h4>
+                        <p>Pais do Noivo</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Padrinhos e Madrinhas -->
+            <section class="cortejo-section">
+                <h3 class="cortejo-section-title">Padrinhos e Madrinhas</h3>
+                <div class="grid-container">
+                    <!-- Exemplo de Padrinho/Madrinha (Repetir conforme necessário) -->
+                    <div class="person-card">
+                        <img src="images/pais-padrinhos/padrinho1.jpg" alt="Nome Padrinho/Madrinha">
+                        <h4>Nome do Padrinho</h4>
+                        <p>Padrinho</p>
+                    </div>
+                    <div class="person-card">
+                        <img src="images/pais-padrinhos/madrinha1.jpg" alt="Nome Padrinho/Madrinha">
+                        <h4>Nome da Madrinha</h4>
+                        <p>Madrinha</p>
+                    </div>
+                    <div class="person-card">
+                        <img src="images/pais-padrinhos/casal_padrinhos1.jpg" alt="Nome Casal Padrinhos">
+                        <h4>Nome Casal Padrinhos</h4>
+                        <p>Padrinhos</p>
+                    </div>
+                    <!-- Adicionar mais cards aqui -->
+                </div>
+            </section>
+
+            <!-- Seção Daminhas e Pajens -->
+            <section class="cortejo-section">
+                <h3 class="cortejo-section-title">Daminhas e Pajens</h3>
+                <div class="grid-container">
+                    <!-- Exemplo de Daminha/Pajem (Repetir conforme necessário) -->
+                    <div class="person-card">
+                        <img src="images/daminhas-pajens/daminha1.jpg" alt="Nome Daminha">
+                        <h4>Nome da Daminha</h4>
+                        <p>Daminha</p>
+                    </div>
+                    <div class="person-card">
+                        <img src="images/daminhas-pajens/pajem1.jpg" alt="Nome Pajem">
+                        <h4>Nome do Pajem</h4>
+                        <p>Pajem</p>
+                    </div>
+                    <!-- Adicionar mais cards aqui -->
+                </div>
+            </section>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="os-noivos.html">Os Noivos</a>
+            <a href="cortejo.html" style="color: var(--dourado-suave);">Cortejo</a> <!-- Link ativo -->
+            <a href="lembrancas.html">Lembranças</a>
+            <a href="cerimonia.html">Cerimônia</a>
+            <a href="festa.html">Recepção</a>
+            <a href="presentes-e-mensagens.html">Presentes</a>
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="audio/wedding_song.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    music.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    music.volume = volumeControl.value;
+                    music.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+
+            volumeControl.addEventListener('input', function() {
+                music.volume = this.value;
+            });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>

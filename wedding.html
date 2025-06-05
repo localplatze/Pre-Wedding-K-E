@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elian & Keyti - Nosso Casamento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- Reset Básico & Variáveis de Cor --- */
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F; /* DarkSeaGreen para fundos mais suaves */
+            --azul-marinho: #191970; /* MidnightBlue */
+            --azul-marinho-suave: #4682B4; /* SteelBlue para acentos */
+            --dourado-suave: #D4AF37; /* Um dourado não muito forte */
+            --creme: #FFF8DC; /* Cornsilk */
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--preto-suave);
+            background-color: var(--creme); /* Fundo geral suave */
+            overflow-x: hidden; /* Evita scroll horizontal */
+            opacity: 0; /* Começa invisível para transição suave */
+            transition: opacity 1s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        /* --- Animação do Livro --- */
+        .book-intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro para foco no livro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            perspective: 1500px; /* Perspectiva para efeito 3D */
+            transition: opacity 0.5s ease-out 1s, visibility 0s linear 1.5s; /* Atraso na transição de opacidade */
+            visibility: visible;
+        }
+
+        .book-intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .book {
+            width: 300px; /* Largura da capa */
+            height: 420px; /* Altura da capa */
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s ease-in-out;
+            cursor: pointer; /* Sugere interação */
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--azul-marinho);
+            color: var(--dourado-suave);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 5px solid var(--dourado-suave);
+            border-radius: 5px 10px 10px 5px;
+            transform-origin: left center;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1); /* Easing para abertura */
+            backface-visibility: hidden; /* Evita ver o verso durante a rotação */
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-160deg); /* Abre o livro */
+        }
+
+        .book-cover h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        .book-cover p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2em;
+        }
+
+        .book-page { /* "Página" atrás da capa */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--creme);
+            border: 2px solid var(--verde-oliva-claro);
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-style: italic;
+            color: var(--verde-oliva);
+            transform: rotateY(0deg); /* Inicialmente "atrás" da capa */
+            z-index: 5;
+        }
+
+        /* --- Conteúdo Principal da Página --- */
+        .main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out 0.5s, visibility 0s linear 1.5s; /* Atraso para aparecer após livro */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px; /* Espaço para o menu, se houver */
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Header com Nomes --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0)); /* Degradê suave creme */
+            width: 100%;
+        }
+
+        .names {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5em;
+            color: var(--verde-oliva);
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .names span {
+            color: var(--azul-marinho-suave);
+        }
+
+        /* --- Seção Hero --- */
+        .hero-section {
+            text-align: center;
+            padding: 50px 20px;
+            width: 100%;
+            max-width: 800px; /* Limita largura para leitura */
+            margin: 0 auto;
+        }
+
+        .hero-section .decorative-line {
+            width: 100px;
+            height: 2px;
+            background-color: var(--dourado-suave);
+            margin: 20px auto;
+        }
+
+        /* --- Contagem Regressiva --- */
+        #countdown {
+            font-size: 1.8em;
+            color: var(--azul-marinho);
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Espaçamento entre os blocos */
+            flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+        }
+
+        #countdown div {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            min-width: 80px; /* Largura mínima para cada bloco */
+        }
+
+        #countdown span {
+            display: block;
+            font-size: 0.5em;
+            color: var(--verde-oliva);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* --- Mensagem Breve --- */
+        .welcome-message {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.3em;
+            color: var(--preto-suave);
+            line-height: 1.7;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        /* --- Save The Date --- */
+        .save-the-date {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--verde-oliva-claro);
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .save-the-date h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--azul-marinho);
+            margin-bottom: 10px;
+        }
+
+        .save-the-date p {
+            font-size: 1.2em;
+            color: var(--preto-suave);
+        }
+
+        /* --- Navegação (Placeholder) --- */
+        nav {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--azul-marinho);
+            width: 100%;
+            margin-top: 50px; /* Espaço após o conteúdo principal */
+        }
+
+        nav a {
+            color: var(--creme);
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--dourado-suave);
+        }
+        
+        /* --- Player de Música --- */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--verde-oliva);
+            padding: 10px 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .music-player button {
+            background: none;
+            border: none;
+            color: var(--creme);
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+        .music-player button:hover {
+            color: var(--dourado-suave);
+        }
+        #volume-control {
+            width: 80px; /* Ajuste conforme necessário */
+            margin-left: 10px;
+            accent-color: var(--dourado-suave);
+        }
+
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--azul-marinho);
+            color: var(--creme);
+            font-size: 0.9em;
+            width: 100%;
+            margin-top: auto; /* Empurra para o final se o conteúdo for pouco */
+        }
+        
+        /* --- Detalhes Delicados (Exemplo: Borda em volta do conteúdo) --- */
+        .content-wrapper {
+            /* max-width: 1200px; /* Define uma largura máxima para o conteúdo central */
+            /* margin: 0 auto; */
+            /* padding: 20px; */
+            /* background-color: var(--branco); */
+            /* border: 1px solid var(--verde-oliva-claro); */
+            /* box-shadow: 0 0 20px rgba(0,0,0,0.05); */
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .names {
+                font-size: 3em;
+            }
+
+            #countdown {
+                font-size: 1.4em;
+                gap: 10px;
+            }
+            #countdown div {
+                padding: 10px 15px;
+                min-width: 70px;
+            }
+
+            .welcome-message {
+                font-size: 1.1em;
+            }
+
+            .save-the-date h3 {
+                font-size: 1.6em;
+            }
+            .save-the-date p {
+                font-size: 1em;
+            }
+
+            .book {
+                width: 240px; /* Reduz tamanho do livro */
+                height: 336px;
+            }
+            .book-cover h2 {
+                font-size: 2em;
+            }
+            .book-cover p {
+                font-size: 1em;
+            }
+
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .names {
+                font-size: 2.5em;
+            }
+
+            #countdown div {
+                min-width: 60px; /* Ajuste para caber mais lado a lado */
+                padding: 8px 10px;
+            }
+            #countdown span {
+                font-size: 0.4em;
+            }
+
+            .hero-section {
+                padding: 30px 15px;
+            }
+            nav a {
+                margin: 0 8px;
+                font-size: 1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Animação do Livro (Overlay) -->
+    <div class="book-intro-overlay" id="bookIntro">
+        <div class="book" id="animatedBook">
+            <div class="book-cover">
+                <h2>Elian & Keyti</h2>
+                <p>Nossa História de Amor</p>
+                <p style="font-size:0.8em; margin-top: 20px;">(Clique para abrir)</p>
+            </div>
+            <div class="book-page">
+                <p>"O amor é paciente, o amor é bondoso..."<br/>1 Coríntios 13:4</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal da Página -->
+    <div class="main-content" id="mainPageContent">
+        <div class="content-wrapper">
+            <header>
+                <h1 class="names">Elian <span>&</span> Keyti</h1>
+            </header>
+
+            <section class="hero-section">
+                <div class="decorative-line"></div>
+                <p class="welcome-message">
+                    Com os corações transbordando de alegria, convidamos vocês para celebrar o capítulo mais esperado de nossa história: nosso casamento!
+                    Preparem-se para um dia de amor, emoção e muita festa.
+                </p>
+                <div class="decorative-line"></div>
+
+                <div id="countdown">
+                    <div><span id="days">00</span>Dias</div>
+                    <div><span id="hours">00</span>Horas</div>
+                    <div><span id="minutes">00</span>Minutos</div>
+                    <div><span id="seconds">00</span>Segundos</div>
+                </div>
+
+                <div class="save-the-date">
+                    <h3>Save The Date</h3>
+                    <p>Sábado, 16 de Agosto de 2025</p>
+                    <p>Em breve, mais informações!</p>
+                </div>
+            </section>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="os-noivos.html">Os Noivos</a>
+            <a href="cerimonia.html">Cerimônia</a>
+            <a href="festa.html">Recepção</a>
+            <a href="presentes-e-mensagens.html">Presentes</a>
+            <!-- Adicionar mais links conforme as páginas forem criadas -->
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <!-- Player de Música -->
+    <audio id="background-music" loop>
+        <source src="caminho/para/sua/musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Animação do Livro e Exibição do Conteúdo ---
+            const bookIntro = document.getElementById('bookIntro');
+            const animatedBook = document.getElementById('animatedBook');
+            const mainPageContent = document.getElementById('mainPageContent');
+            const body = document.body;
+
+            // Inicia a animação do livro ao clicar nele
+            animatedBook.addEventListener('click', function() {
+                animatedBook.classList.add('open');
+                // Após a animação do livro, esconde o overlay e mostra o conteúdo
+                setTimeout(() => {
+                    bookIntro.classList.add('hidden');
+                    mainPageContent.classList.add('visible');
+                    body.classList.add('loaded'); // Adiciona classe para transição suave do body
+                }, 1500); // Tempo da animação de abertura do livro
+            });
+
+            // Caso o usuário não clique, abrir automaticamente após um tempo (opcional)
+            // setTimeout(() => {
+            //     if (!animatedBook.classList.contains('open')) {
+            //         animatedBook.click(); // Simula o clique
+            //     }
+            // }, 5000); // Abre após 5 segundos se não houver clique
+
+
+            // --- Contagem Regressiva ---
+            // !!! IMPORTANTE: Defina a data do seu casamento aqui !!!
+            const weddingDate = new Date("Aug 16, 2025 19:00:00").getTime();
+
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = String(days).padStart(2, '0');
+                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdown").innerHTML = "Chegou o Grande Dia!";
+                }
+            }, 1000);
+
+            // --- Player de Música ---
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+
+            // Para autoplay (alguns navegadores bloqueiam, o usuário precisa interagir primeiro)
+            // Tentar dar play após o livro abrir pode ser uma boa
+            function attemptPlayMusic() {
+                music.volume = volumeControl.value;
+                music.play().then(() => {
+                    isPlaying = true;
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(error => {
+                    console.log("Autoplay bloqueado, esperando interação do usuário.", error);
+                    // Mantém o ícone de play se o autoplay falhar
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+            }
+            
+            // Tenta tocar a música quando o conteúdo principal se torna visível
+            const observer = new MutationObserver((mutationsList, observer) => {
+                for(const mutation of mutationsList) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        if (mainPageContent.classList.contains('visible') && !isPlaying) {
+                           // Descomente a linha abaixo se quiser tentar autoplay
+                           // attemptPlayMusic();
+                           // observer.disconnect(); // Para de observar após a primeira tentativa
+                        }
+                    }
+                }
+            });
+            observer.observe(mainPageContent, { attributes: true });
+
+
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    music.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    music.volume = volumeControl.value; // Garante que o volume está setado
+                    music.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+
+            volumeControl.addEventListener('input', function() {
+                music.volume = this.value;
+                // Se estiver pausado e o usuário mexer no volume, não comece a tocar.
+                // Se estiver tocando, o volume é ajustado dinamicamente.
+            });
+
+            // --- Ano Atual no Footer ---
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>

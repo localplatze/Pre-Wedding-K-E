@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Cerimônia - Elian & Keyti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F;
+            --azul-marinho: #191970;
+            --azul-marinho-suave: #4682B4;
+            --dourado-suave: #D4AF37;
+            --creme: #FFF8DC;
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--preto-suave); background-color: var(--creme); overflow-x: hidden; }
+
+        .main-content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        header.page-header { text-align: center; padding: 30px 20px 10px; background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0)); width: 100%; }
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--verde-oliva); margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .names span { color: var(--azul-marinho-suave); }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.5em; color: var(--azul-marinho); text-align: center; margin-top: 20px; margin-bottom: 15px; }
+        .decorative-line { width: 80px; height: 2px; background-color: var(--dourado-suave); margin: 0 auto 30px auto; }
+        .content-container { width: 100%; max-width: 850px; margin: 0 auto 40px auto; padding: 20px 30px; background-color: rgba(255,255,255,0.7); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+
+        .event-details { text-align: center; }
+        .event-details h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--verde-oliva);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .event-details p {
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin-bottom: 8px;
+            color: var(--preto-suave);
+        }
+        .event-details .icon-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .event-details .icon-info i {
+            color: var(--azul-marinho-suave);
+            font-size: 1.3em;
+            margin-right: 10px;
+        }
+        .map-container {
+            width: 100%;
+            height: 350px; /* Ajuste a altura conforme necessário */
+            border-radius: 8px;
+            overflow: hidden; /* Para bordas arredondadas no iframe */
+            margin-top: 25px;
+            border: 3px solid var(--verde-oliva-claro);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .additional-info {
+            margin-top: 25px;
+            font-style: italic;
+            font-size: 1em;
+        }
+
+        nav { text-align: center; padding: 20px; background-color: var(--azul-marinho); width: 100%; }
+        nav a { color: var(--creme); margin: 0 15px; text-decoration: none; font-size: 1.1em; transition: color 0.3s ease; }
+        nav a:hover { color: var(--dourado-suave); }
+        .music-player { position: fixed; bottom: 20px; right: 20px; background-color: var(--verde-oliva); padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000; }
+        .music-player button { background: none; border: none; color: var(--creme); font-size: 1.5em; cursor: pointer; padding: 5px; transition: color 0.3s ease; }
+        .music-player button:hover { color: var(--dourado-suave); }
+        #volume-control { width: 80px; margin-left: 10px; accent-color: var(--dourado-suave); }
+        footer { text-align: center; padding: 30px 20px; background-color: var(--azul-marinho); color: var(--creme); font-size: 0.9em; width: 100%; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .names { font-size: 2.8em; }
+            .page-title { font-size: 2em; }
+            .event-details h3 { font-size: 1.7em; }
+            .event-details p, .event-details .icon-info { font-size: 1.05em; }
+            .map-container { height: 300px; }
+        }
+        @media (max-width: 480px) {
+            .names { font-size: 2.2em; }
+            .page-title { font-size: 1.7em; }
+            nav a { margin: 0 8px; font-size: 1em;}
+            .map-container { height: 250px; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <div class="main-content visible">
+        <header class="page-header">
+            <h1 class="names">Elian <span>&</span> Keyti</h1>
+        </header>
+
+        <h2 class="page-title">A Cerimônia</h2>
+        <div class="decorative-line"></div>
+
+        <div class="content-container event-details">
+            <h3>Nossa Bênção</h3>
+            <p>Convidamos vocês a testemunharem o momento em que uniremos nossas vidas perante Deus e nossos queridos.</p>
+            
+            <div class="icon-info">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Sábado, 25 de Outubro de 2025</span>
+            </div>
+            <div class="icon-info">
+                <i class="fas fa-clock"></i>
+                <span>Às 16:00 horas</span>
+            </div>
+            <div class="icon-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Igreja Matriz de Santa Felicidade</span>
+            </div>
+            <p>Av. Manoel Ribas, 5480 - Santa Felicidade, Curitiba - PR</p>
+            
+            <div class="map-container">
+                <!-- SUBSTITUA PELO SEU IFRAME DO GOOGLE MAPS -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.188838743902!2d-49.3380066853917!3d-25.39862198379958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce10db1643309%3A0x372853f40dc510d!2sIgreja%20Matriz%20de%20S%C3%A3o%20Jos%C3%A9%20e%20Santa%20Felicidade!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <p class="additional-info">
+                Por favor, cheguem com um pouco de antecedência para se acomodarem tranquilamente.<br>
+                Haverá estacionamento disponível [próximo ao local / no local].
+            </p>
+        </div>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="os-noivos.html">Os Noivos</a>
+            <a href="cortejo.html">Cortejo</a>
+            <a href="lembrancas.html">Lembranças</a>
+            <a href="vestimenta.html">Vestimenta</a>
+            <a href="cerimonia.html" style="color: var(--dourado-suave);">Cerimônia</a>
+            <a href="festa.html">Recepção</a>
+            <a href="presentes-e-mensagens.html">Presentes</a>
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="audio/wedding_song.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) { music.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; } 
+                else { music.volume = volumeControl.value; music.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+                isPlaying = !isPlaying;
+            });
+            volumeControl.addEventListener('input', function() { music.volume = this.value; });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

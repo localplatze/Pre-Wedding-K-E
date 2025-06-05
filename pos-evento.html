@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pós-Evento - Elian & Keyti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --verde-oliva: #556B2F;
+            --verde-oliva-claro: #8FBC8F;
+            --azul-marinho: #191970;
+            --azul-marinho-suave: #4682B4;
+            --dourado-suave: #D4AF37;
+            --creme: #FFF8DC;
+            --branco: #FFFFFF;
+            --preto-suave: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--preto-suave); background-color: var(--creme); overflow-x: hidden; }
+
+        .main-content { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        header.page-header { text-align: center; padding: 30px 20px 10px; background: linear-gradient(to bottom, rgba(255,248,220,0.8), rgba(255,248,220,0)); width: 100%; }
+        .names { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--verde-oliva); margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        .names span { color: var(--azul-marinho-suave); }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.5em; color: var(--azul-marinho); text-align: center; margin-top: 20px; margin-bottom: 10px; }
+        .page-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15em; color: var(--preto-suave); text-align: center; max-width: 700px; margin: 0 auto 25px auto; line-height: 1.6; }
+        .decorative-line { width: 80px; height: 2px; background-color: var(--dourado-suave); margin: 0 auto 30px auto; }
+        .content-container { width: 100%; max-width: 800px; margin: 0 auto 40px auto; padding: 30px; background-color: rgba(255,255,255,0.7); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+
+        .thank-you-message {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        .gallery-link a {
+            display: inline-block;
+            background-color: var(--verde-oliva);
+            color: var(--branco);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 15px;
+        }
+        .gallery-link a:hover {
+            background-color: var(--dourado-suave);
+            color: var(--preto-suave);
+        }
+        .gallery-link i {
+            margin-right: 8px;
+        }
+        .coming-soon {
+            font-size: 1.5em;
+            color: var(--azul-marinho-suave);
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        nav { text-align: center; padding: 20px; background-color: var(--azul-marinho); width: 100%; }
+        nav a { color: var(--creme); margin: 0 15px; text-decoration: none; font-size: 1.1em; transition: color 0.3s ease; }
+        nav a:hover { color: var(--dourado-suave); }
+        .music-player { position: fixed; bottom: 20px; right: 20px; background-color: var(--verde-oliva); padding: 10px 15px; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000; }
+        .music-player button { background: none; border: none; color: var(--creme); font-size: 1.5em; cursor: pointer; padding: 5px; transition: color 0.3s ease; }
+        .music-player button:hover { color: var(--dourado-suave); }
+        #volume-control { width: 80px; margin-left: 10px; accent-color: var(--dourado-suave); }
+        footer { text-align: center; padding: 30px 20px; background-color: var(--azul-marinho); color: var(--creme); font-size: 0.9em; width: 100%; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .names { font-size: 2.8em; }
+            .page-title { font-size: 2em; }
+            .thank-you-message { font-size: 1.1em; }
+        }
+        @media (max-width: 480px) {
+            .names { font-size: 2.2em; }
+            .page-title { font-size: 1.7em; }
+            nav a { margin: 0 8px; font-size: 1em;}
+        }
+    </style>
+</head>
+<body class="loaded">
+    <div class="main-content visible">
+        <header class="page-header">
+            <h1 class="names">Elian <span>&</span> Keyti</h1>
+        </header>
+
+        <!-- ANTES DO CASAMENTO / OU LOGO APÓS SEM FOTOS AINDA -->
+        <h2 class="page-title">Nosso Agradecimento</h2>
+        <p class="page-subtitle">Um espaço para revivermos juntos os momentos mágicos do nosso grande dia!</p>
+        <div class="decorative-line"></div>
+        <div class="content-container">
+            <p class="thank-you-message">
+                Queridos amigos e familiares,
+                <br><br>
+                Ainda estamos flutuando com a emoção do nosso casamento! Agradecemos imensamente por cada sorriso, abraço, palavra de carinho e pela presença de todos que tornaram nosso dia inesquecível.
+                <br><br>
+                Vocês são parte fundamental da nossa história e da nossa felicidade.
+            </p>
+            <p class="coming-soon">
+                <i class="fas fa-camera-retro"></i> Em breve, compartilharemos aqui as fotos e vídeos oficiais!
+            </p>
+            <div class="gallery-link">
+                <!-- Link para a galeria quando estiver disponível -->
+                <!-- <a href="LINK_DA_GALERIA_EXTERNA" target="_blank"><i class="fas fa-images"></i> Acessar Galeria de Fotos</a> -->
+            </div>
+        </div>
+
+        <!-- APÓS O CASAMENTO COM FOTOS DISPONÍVEIS (EXEMPLO DE COMO PODERIA SER) -->
+        <!--
+        <h2 class="page-title">Momentos Inesquecíveis</h2>
+        <p class="page-subtitle">Reviva conosco a magia do nosso casamento!</p>
+        <div class="decorative-line"></div>
+        <div class="content-container">
+            <p class="thank-you-message">
+                Ainda estamos transbordando de alegria e gratidão por cada momento compartilhado!
+                Ver as fotos nos faz reviver toda a emoção. Esperamos que gostem!
+            </p>
+            <div class="gallery-link">
+                <a href="LINK_DA_GALERIA_EXTERNA_FOTOS" target="_blank"><i class="fas fa-images"></i> Ver Fotos Oficiais</a>
+            </div>
+            <div class="gallery-link" style="margin-top:10px;">
+                <a href="LINK_DO_VIDEO_EXTERNO" target="_blank"><i class="fas fa-video"></i> Assista ao Vídeo</a>
+            </div>
+            <p style="margin-top:30px; font-style:italic;">Com todo nosso amor,<br>Elian & Keyti</p>
+        </div>
+        -->
+
+
+        <nav>
+            <a href="index.html">Início</a>
+            <!-- ... outros links ... -->
+            <a href="presentes-e-mensagens.html">Presentes & Mensagens</a>
+            <a href="pos-evento.html" style="color: var(--dourado-suave);">Pós-Evento</a>
+        </nav>
+
+        <footer>
+            <p>© <span id="currentYear"></span> Elian & Keyti. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fas fa-heart" style="color: var(--dourado-suave);"></i> para o nosso grande dia!</p>
+        </footer>
+    </div>
+
+    <audio id="background-music" loop> <source src="audio/wedding_song.mp3" type="audio/mpeg"> </audio>
+    <div class="music-player">
+        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeControl = document.getElementById('volume-control');
+            let isPlaying = false;
+            playPauseBtn.addEventListener('click', function() {
+                if (isPlaying) { music.pause(); playPauseBtn.innerHTML = '<i class="fas fa-play"></i>'; } 
+                else { music.volume = volumeControl.value; music.play(); playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'; }
+                isPlaying = !isPlaying;
+            });
+            volumeControl.addEventListener('input', function() { music.volume = this.value; });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
